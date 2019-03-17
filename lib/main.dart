@@ -110,6 +110,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 })
               }
             ),
+            FlatButton(
+              child: Text("getArticles"), 
+              onPressed: () => { 
+                ApiService.getArticles(0).then((aticles){ 
+                  debugPrint(aticles.toString());
+                }).catchError((e) {
+                  print(e);
+                })
+              }
+            ),
           ],
         ),
       ),

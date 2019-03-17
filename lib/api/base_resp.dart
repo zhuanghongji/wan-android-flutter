@@ -16,7 +16,7 @@ class BaseResp<T> {
 
     _check(errorCode, errorMsg);
 
-    data = jsonRes['data'];
+    data = buildFun(jsonRes['data']);
   }
 }
 
