@@ -1,6 +1,6 @@
 import 'dart:convert' show json;
 
-class UserData {
+class UserInfo {
 
   int id;
   int type;
@@ -12,7 +12,7 @@ class UserData {
   List<dynamic> chapterTops;
   List<int> collectIds;
 
-  UserData.fromParams({
+  UserInfo.fromParams({
     this.id, 
     this.type, 
     this.email, 
@@ -24,7 +24,7 @@ class UserData {
     this.collectIds
   });
   
-  UserData.fromJson(jsonRes) {
+  UserInfo.fromJson(jsonRes) {
     id = jsonRes['id'];
     type = jsonRes['type'];
     email = jsonRes['email'];

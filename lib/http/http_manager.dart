@@ -20,18 +20,31 @@ class HttpManager {
     }
   }
   
-  Future<Map<String, dynamic>> get(String url, [Map<String, dynamic> params]) async {
+  /// GET 请求
+  /// 
+  /// - [path] 参数是跟在 [BASE_URL] 后面的路径
+  /// - [params] 参数是请求参数
+  Future<Map<String, dynamic>> get(String path, [Map<String, dynamic> params]) async {
     Response<Map<String,  dynamic>> response;
     if (params != null) {
-      response = await _client.get(url, queryParameters: params);
+      response = await _client.get(path, queryParameters: params);
     } else {
-      response = await _client.get(url);
+      response = await _client.get(path);
     }
     return response.data;
   }
 
-  // dynamic get(String url, [Map<String, dynamic> params]) async {
-  //   Response response = await _client.get<String>(url, queryParameters: params);
-  //   print(response.data.toString());
-  // }
+  /// POST 请求
+  /// 
+  /// - [path] 参数是跟在 [BASE_URL] 后面的路径
+  /// - [params] 参数是请求参数
+  Future<Map<String, dynamic>> post(String path, [Map<String, dynamic> params]) async {
+    Response<Map<String,  dynamic>> response;
+    if (params != null) {
+      response = await _client.post(path, queryParameters: params);
+    } else {
+      response = await _client.post(path);
+    }
+    return response.data;
+  }
 }

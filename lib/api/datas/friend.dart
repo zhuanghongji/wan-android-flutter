@@ -1,7 +1,7 @@
 import 'dart:convert' show json;
 
 /// 网站
-class Website {
+class Friend {
 
   int id;
   int order;
@@ -10,7 +10,7 @@ class Website {
   String link;
   String name;
 
-  Website.fromParams({
+  Friend.fromParams({
     this.id, 
     this.order, 
     this.visible, 
@@ -19,7 +19,7 @@ class Website {
     this.name
   });
 
-  Website.fromJson(jsonRes) {
+  Friend.fromJson(jsonRes) {
     id = jsonRes['id'];
     order = jsonRes['order'];
     visible = jsonRes['visible'];
