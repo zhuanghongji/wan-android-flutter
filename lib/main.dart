@@ -102,7 +102,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             FlatButton(
               child: Text("getBanner"), 
-              onPressed: () => { ApiService.getBanner(() => {}) },)
+              onPressed: () => { 
+                ApiService.getBanner().then((banners){ 
+                  debugPrint(banners.toString());
+                }).catchError((e) {
+                  print(e);
+                })
+              }
+            ),
           ],
         ),
       ),

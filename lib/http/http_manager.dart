@@ -20,18 +20,18 @@ class HttpManager {
     }
   }
   
-  // Future<Map<String, dynamic>> get(String url, [Map<String, dynamic> params]) async {
-  //   // Response<Map<String,  dynamic>> response;
-  //   // if (params != null) {
-  //   //   response = await _client.get(url, queryParameters: params);
-  //   // } else {
-  //   //   response = await _client.get(url);
-  //   // }
-  //   // return response.data;
-  // }
-
-  dynamic get(String url, [Map<String, dynamic> params]) async {
-    Response response = await _client.get<String>(url, queryParameters: params);
-    print(response.data.toString());
+  Future<Map<String, dynamic>> get(String url, [Map<String, dynamic> params]) async {
+    Response<Map<String,  dynamic>> response;
+    if (params != null) {
+      response = await _client.get(url, queryParameters: params);
+    } else {
+      response = await _client.get(url);
+    }
+    return response.data;
   }
+
+  // dynamic get(String url, [Map<String, dynamic> params]) async {
+  //   Response response = await _client.get<String>(url, queryParameters: params);
+  //   print(response.data.toString());
+  // }
 }

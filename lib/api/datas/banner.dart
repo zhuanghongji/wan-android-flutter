@@ -32,4 +32,9 @@ class Banner {
     title = jsonRes['title'];
     url = jsonRes['url'];
   }
+
+  @override
+  String toString() {
+    return '{"id": $id,"isVisible": $isVisible,"order": $order,"type": $type,"desc": ${desc != null?'${json.encode(desc)}':'null'},"imagePath": ${imagePath != null?'${json.encode(imagePath)}':'null'},"title": ${title != null?'${json.encode(title)}':'null'},"url": ${url != null?'${json.encode(url)}':'null'}}';
+  }
 }
