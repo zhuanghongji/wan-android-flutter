@@ -6,7 +6,10 @@ class Tag {
   String name;
   String url;
 
-  Tag.fromParams({this.name, this.url});
+  Tag.fromParams({
+    this.name, 
+    this.url
+  });
 
   Tag.fromJson(jsonRes) {
     name = jsonRes['name'];

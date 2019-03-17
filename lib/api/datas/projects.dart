@@ -1,7 +1,9 @@
-import 'article.dart';
+// import 'dart:convert' show json;
 
-/// 文章列表
-class Articles {
+import 'project.dart';
+
+/// 项目列表
+class Projects {
 
   int curPage;
   int offset;
@@ -9,9 +11,9 @@ class Articles {
   int size;
   int total;
   bool over;
-  List<Article> datas;
+  List<Project> datas;
 
-  Articles.fromParams({
+  Projects.fromParams({
     this.curPage, 
     this.offset, 
     this.pageCount, 
@@ -21,7 +23,7 @@ class Articles {
     this.datas
   });
 
-  Articles.fromJson(jsonRes) {
+  Projects.fromJson(jsonRes) {
     curPage = jsonRes['curPage'];
     offset = jsonRes['offset'];
     pageCount = jsonRes['pageCount'];
@@ -31,7 +33,7 @@ class Articles {
     datas = jsonRes['datas'] == null ? null : [];
 
     for (var datasItem in datas == null ? [] : jsonRes['datas']){
-      datas.add(datasItem == null ? null : Article.fromJson(datasItem));
+      datas.add(datasItem == null ? null : Project.fromJson(datasItem));
     }
   }
 

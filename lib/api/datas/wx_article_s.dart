@@ -1,7 +1,7 @@
-import 'article.dart';
+import 'wx_article.dart';
 
-/// 文章列表
-class Articles {
+/// 微信文章列表
+class WxArticles {
 
   int curPage;
   int offset;
@@ -9,9 +9,9 @@ class Articles {
   int size;
   int total;
   bool over;
-  List<Article> datas;
+  List<WxArticle> datas;
 
-  Articles.fromParams({
+  WxArticles.fromParams({
     this.curPage, 
     this.offset, 
     this.pageCount, 
@@ -21,7 +21,7 @@ class Articles {
     this.datas
   });
 
-  Articles.fromJson(jsonRes) {
+  WxArticles.fromJson(jsonRes) {
     curPage = jsonRes['curPage'];
     offset = jsonRes['offset'];
     pageCount = jsonRes['pageCount'];
@@ -31,7 +31,7 @@ class Articles {
     datas = jsonRes['datas'] == null ? null : [];
 
     for (var datasItem in datas == null ? [] : jsonRes['datas']){
-      datas.add(datasItem == null ? null : Article.fromJson(datasItem));
+      datas.add(datasItem == null ? null : WxArticle.fromJson(datasItem));
     }
   }
 

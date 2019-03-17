@@ -2,8 +2,7 @@ import 'dart:convert' show json;
 
 import 'tag.dart';
 
-/// 文章
-class Article {
+class System {
 
   int chapterId;
   int courseId;
@@ -29,7 +28,7 @@ class Article {
   String title;
   List<Tag> tags;
 
-  Article.fromParams({
+  System.fromParams({
     this.chapterId, 
     this.courseId, 
     this.id, 
@@ -55,7 +54,7 @@ class Article {
     this.tags
   });
 
-  Article.fromJson(jsonRes) {
+  System.fromJson(jsonRes) {
     chapterId = jsonRes['chapterId'];
     courseId = jsonRes['courseId'];
     id = jsonRes['id'];
@@ -81,7 +80,7 @@ class Article {
     tags = jsonRes['tags'] == null ? null : [];
 
     for (var tagsItem in tags == null ? [] : jsonRes['tags']){
-      tags.add(tagsItem == null ? null : new Tag.fromJson(tagsItem));
+      tags.add(tagsItem);
     }
   }
 

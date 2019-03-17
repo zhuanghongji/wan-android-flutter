@@ -1,9 +1,7 @@
 import 'dart:convert' show json;
 
-import 'tag.dart';
-
-/// 文章
-class Article {
+/// 导航文章
+class NaviArticle {
 
   int chapterId;
   int courseId;
@@ -27,9 +25,9 @@ class Article {
   String projectLink;
   String superChapterName;
   String title;
-  List<Tag> tags;
+  List<dynamic> tags;
 
-  Article.fromParams({
+  NaviArticle.fromParams({
     this.chapterId, 
     this.courseId, 
     this.id, 
@@ -55,7 +53,7 @@ class Article {
     this.tags
   });
 
-  Article.fromJson(jsonRes) {
+  NaviArticle.fromJson(jsonRes) {
     chapterId = jsonRes['chapterId'];
     courseId = jsonRes['courseId'];
     id = jsonRes['id'];
@@ -81,7 +79,7 @@ class Article {
     tags = jsonRes['tags'] == null ? null : [];
 
     for (var tagsItem in tags == null ? [] : jsonRes['tags']){
-      tags.add(tagsItem == null ? null : new Tag.fromJson(tagsItem));
+      tags.add(tagsItem);
     }
   }
 

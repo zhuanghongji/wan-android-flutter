@@ -1,5 +1,6 @@
 import 'dart:convert' show json;
 
+/// 首页 Banner
 class Banner {
 
   int id;
