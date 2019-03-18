@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api/datas/user_info.dart';
-import '../constant/SpConstant.dart';
+import '../constant/sp_constant.dart';
 
 class User {
 
