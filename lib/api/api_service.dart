@@ -4,18 +4,18 @@ import 'base_resp.dart';
 import 'datas/article.dart';
 import 'datas/articles.dart';
 import 'datas/banner.dart';
-import 'datas/collection.dart';
+// import 'datas/collection.dart';
 import 'datas/collections.dart';
 import 'datas/friend.dart';
 import 'datas/hotkey.dart';
-import 'datas/navi_article.dart';
+// import 'datas/navi_article.dart';
 import 'datas/navi.dart';
 // import 'datas/project.dart';
 import 'datas/projects.dart';
 // import 'datas/system.dart';
 import 'datas/systems.dart';
 // import 'datas/tag.dart';
-import 'datas/user_info.dart';
+// import 'datas/user_info.dart';
 import 'datas/website_collection.dart';
 import 'datas/wx_article_s.dart';
 // import 'datas/wx_article.dart';
@@ -43,8 +43,8 @@ class ApiService {
   }
 
   /// 首页 Banner
-  static Future<List<Banner>> getBanner() async {
-    return getList('/banner/json', (res) => Banner.fromJson(res));
+  static Future<List<BannerItem>> getBanner() async {
+    return getList('/banner/json', (res) => BannerItem.fromJson(res));
   } 
 
   /// 首页文章列表
@@ -234,7 +234,7 @@ class ApiService {
     });
   }
 
-  /// 新增一个 TODO
+  /// 新增一个 Todo
   /// 
   /// - [title] 新增标题（必须）
   /// - [content] 新增详情（必须）

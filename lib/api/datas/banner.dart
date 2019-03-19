@@ -1,7 +1,7 @@
 import 'dart:convert' show json;
 
 /// 首页 Banner
-class Banner {
+class BannerItem {
 
   int id;
   int isVisible;
@@ -12,7 +12,7 @@ class Banner {
   String title;
   String url;
 
-  Banner.fromParams({
+  BannerItem.fromParams({
     this.id, 
     this.isVisible, 
     this.order, 
@@ -23,7 +23,7 @@ class Banner {
     this.url
   });
 
-  Banner.fromJson(jsonRes) {
+  BannerItem.fromJson(jsonRes) {
     id = jsonRes['id'];
     isVisible = jsonRes['isVisible'];
     order = jsonRes['order'];

@@ -5,7 +5,6 @@ import 'package:event_bus/event_bus.dart';
 
 import 'pages/main/main_page.dart';
 
-import 'api/api_service.dart';
 import 'common/app.dart';
 import 'common/user.dart';
 import 'constant/sp_constant.dart';
