@@ -8,6 +8,8 @@ import '../../../api/datas/banner.dart';
 import '../../../widget/custom_banner.dart';
 import '../../../pages/main/main_drawer.dart';
 import '../../../utils/time_line.dart';
+import '../../web/WebPage.dart';
+import '../../../assets/images.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -58,8 +60,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
     });
   }
 
-  void _onBannerItemTap(int index) {
-    print('_onBannerItemTap index = $index');
+  void _onBannerItemTap(BannerItem item, int index) {
+    print('_onBannerItemTap: item = $item, index = $index');
+    gotoWebPage(context, item.title, item.url);
   }
 
   Widget _buildArticleItem(BuildContext context, int index) {
@@ -77,7 +80,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
       var article =_articles[index - 1];
       return InkWell(
         onTap: () {
-          print('On Article tap, index = $index');
+          gotoWebPage(context, article.title, article.link);
         },
         child: Column(
           children: <Widget>[
@@ -85,15 +88,21 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
               padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
               child: Row(
                 children: <Widget>[
+                  Image.asset(
+                    ImageAsset.icMan,
+                    width: 16,
+                    height: 16,
+                  ),
+                  Text('  '),
                   Text(
                     article.author,
-                    style:TextStyle(fontSize: 12),
+                    style:TextStyle(fontSize: 14),
                     textAlign: TextAlign.start,
                   ),
                   Expanded(
                     child: Text(
                       TimelineUtil.format(article.publishTime),
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: 14),
                       textAlign: TextAlign.right,
                     ),
                   )
@@ -108,7 +117,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                     child: Text(
                         article.title,
                         maxLines: 2,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.left,
                     ),
                   )
@@ -120,7 +129,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
               child: Row(
                 children: <Widget>[
                   Text(article.superChapterName,
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(fontSize: 14),
                     textAlign: TextAlign.left,
                   ),
                 ],

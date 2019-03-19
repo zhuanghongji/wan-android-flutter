@@ -26,18 +26,19 @@ class RefreshSafeArea extends StatelessWidget {
 /// 轮播图部件
 class CustomBanner extends StatelessWidget {
   final List<BannerItem> bannerItems;
-  final void Function(int index) onTap;
+  final void Function(BannerItem item, int index) onTap;
 
   CustomBanner(this.bannerItems, this.onTap);
 
   Widget buildItem(BuildContext context, int index) {
+    var bannerItem = bannerItems[index];
     return InkWell(
       onTap: () {
-        this.onTap(index);
+        this.onTap(bannerItem, index);
       },
       child: Container(
         child: Image.network(
-          bannerItems[index].imagePath, 
+          bannerItem.imagePath, 
           fit:BoxFit.fill
         ),
       ),
