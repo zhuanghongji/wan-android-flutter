@@ -4,7 +4,7 @@ import './main_drawer.dart';
 import './main_bottom_bar.dart';
 
 import 'home/home_page.dart';
-import 'system/system_page.dart';
+import 'system/system_tree_page.dart';
 import 'wx_chapter/wx_chapter_page.dart';
 import 'navi/navi_page.dart';
 import 'project/project_page.dart';
@@ -25,7 +25,7 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
 
   var _index = 0;
   var _pages = <Widget>[];
-  var _titles = ['首页', '体知识系', '公众号', '导航', '项目'];
+  var _titles = ['首页', '知识体系', '公众号', '导航', '项目'];
 
   var _showAppBar = true;
   var _showDrawer = true;
@@ -104,7 +104,7 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
     super.initState();
     _pages = [
       HomePage(),
-      SystemPage(),
+      SystemTreePage(),
       WxChapterPage(),
       NaviPage(),
       ProjectPage(),

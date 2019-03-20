@@ -37,13 +37,11 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
   }
 
   /// 获取文章
-  Future<Null> _getArticles() async {
+  Future<void> _getArticles() async {
     _pageNum = 0;
-    print('_pageNum = $_pageNum');
     ApiService.getArticles(_pageNum).then((Articles articles){
       setState(() {
         _articles.addAll(articles.datas);
-        print('_articles = $_articles');  
       });
     });
   }
@@ -51,11 +49,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
   /// 获取更多文章 
   void _getMoreArticles() {
     _pageNum++;
-    print('_pageNum = $_pageNum');
     ApiService.getArticles(_pageNum).then((Articles articles){
       setState(() {
         _articles.addAll(articles.datas);  
-        print('_articles = $_articles');
       });
     });
   }

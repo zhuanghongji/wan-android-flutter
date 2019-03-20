@@ -1,8 +1,8 @@
 import 'dart:convert' show json;
 
-// import 'tag.dart';
+import 'system.dart';
 
-class System {
+class SystemTree {
 
   int courseId;
   int id;
@@ -11,9 +11,9 @@ class System {
   int visible;
   bool userControlSetTop;
   String name;
-  List<dynamic> children;
+  List<System> children;
 
-  System.fromParams({
+  SystemTree.fromParams({
     this.courseId, 
     this.id, 
     this.order, 
@@ -24,7 +24,7 @@ class System {
     this.children,
   });
 
-  System.fromJson(jsonRes) {
+  SystemTree.fromJson(jsonRes) {
     courseId = jsonRes['courseId'];
     id = jsonRes['id'];
     order = jsonRes['order'];
@@ -35,7 +35,7 @@ class System {
     children = jsonRes['children'] == null ? null : [];
 
     for (var childrenItem in children == null ? [] : jsonRes['children']){
-      children.add(childrenItem);
+      children.add(childrenItem == null ? null : System.fromJson(childrenItem));
     }
   }
 

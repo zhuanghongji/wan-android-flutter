@@ -13,7 +13,7 @@ import 'datas/navi.dart';
 // import 'datas/project.dart';
 import 'datas/projects.dart';
 // import 'datas/system.dart';
-import 'datas/systems.dart';
+import 'datas/system_tree.dart';
 // import 'datas/tag.dart';
 // import 'datas/user_info.dart';
 import 'datas/website_collection.dart';
@@ -76,8 +76,8 @@ class ApiService {
   /// 体系数据
   /// 
   /// 主要标识的网站内容的体系结构，二级目录
-  static Future<Systems> getSystems() async {
-    return get('/tree/json', (res) => Systems.fromJson(res));
+  static Future<List<SystemTree>> getSystemTrees() async {
+    return getList('/tree/json', (res) => SystemTree.fromJson(res));
   }
 
   /// 知识体系下的文章

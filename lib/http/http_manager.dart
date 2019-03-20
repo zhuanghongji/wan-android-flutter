@@ -31,6 +31,7 @@ class HttpManager {
     } else {
       response = await _client.get(path);
     }
+    print('HttpManager: path = $path, params = $params, response = $response');
     return response.data;
   }
 
