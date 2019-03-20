@@ -12,6 +12,7 @@ import 'datas/hotkey.dart';
 import 'datas/navi.dart';
 // import 'datas/project.dart';
 import 'datas/projects.dart';
+import 'datas/project_tree.dart';
 // import 'datas/system.dart';
 import 'datas/system_tree.dart';
 // import 'datas/tag.dart';
@@ -96,8 +97,8 @@ class ApiService {
   /// 项目分类
   /// 
   /// 项目为包含一个分类，该接口返回整个分类。
-  static Future<Projects> getProjects() async {
-    return get('/project/tree/json', (res) => Projects.fromJson(res));
+  static Future<List<ProjectTree>> getProjects() async {
+    return getList('/project/tree/json', (res) => ProjectTree.fromJson(res));
   }
 
   /// 项目列表数据
