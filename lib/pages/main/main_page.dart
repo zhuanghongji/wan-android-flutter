@@ -118,7 +118,8 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
       child: DefaultTabController(
         length: _pages.length,
         child: Scaffold(
-          appBar: _showAppBar ? _getAppBarWidget(context) : null,
+          // appBar: _showAppBar ? _getAppBarWidget(context) : null,
+          appBar: _getAppBarWidget(context),
           drawer: _showDrawer ? MainDrawer() : null,
           body: IndexedStack(
             index: _index,
