@@ -89,8 +89,8 @@ class ApiService {
   }
 
   /// 导航数据
-  static Future<Navi> getNavis() async {
-    return get('/navi/json', (res) => Navi.fromJson(res));
+  static Future<List<Navi>> getNavis() async {
+    return getList('/navi/json', (res) => Navi.fromJson(res));
   }
 
   /// 项目分类
