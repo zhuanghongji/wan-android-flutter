@@ -84,9 +84,9 @@ class ApiService {
   /// 知识体系下的文章
   /// 
   /// - [pageNum] 页码：拼接在链接上，从0开始。
-  /// - [cid] cid 分类的id，上述二级目录的id
-  static Future<List<Article>> getArticlesByCid(int pageNum, int cid) async {
-    return getList('/article/list/$pageNum/json?cid=$cid', (res) => Article.fromJson(res));
+  /// - [cid] cid 分类的id，上述二级目录的 id (体系具体条目)
+  static Future<Articles> getArticlesByCid(int pageNum, int cid) async {
+    return get('/article/list/$pageNum/json?cid=$cid', (res) => Articles.fromJson(res));
   }
 
   /// 导航数据

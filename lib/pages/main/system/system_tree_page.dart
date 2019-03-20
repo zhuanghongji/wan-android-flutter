@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wan/api/datas/system.dart';
+import 'package:wan/pages/main/system/articles/system_articles.dart';
 
 import '../../../api/datas/system_tree.dart';
 import '../../../api/api_service.dart';
@@ -25,6 +26,7 @@ class _SystemTreePageState extends State<SystemTreePage> {
 
   void _onSystemBranchPressed(System branch) {
     print(branch);
+    gotoSystemArticlesPage(context, branch.name, branch.id);
   }
 
   /// 构建每一个 SystemTree
