@@ -1,4 +1,4 @@
-import 'article.dart';
+import 'package:wan/api/datas/article.dart';
 
 /// 文章列表
 class Articles {

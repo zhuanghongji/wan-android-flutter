@@ -1,9 +1,9 @@
-
+/// SharePreference 相关常量
 class SpConstant {  
   
-  static const USER_NAME = "user_name";
+  static const userName = "user_name";
 
-  static const COOKIES = "cookies";
+  static const cookies = "cookies";
 
-  static const THEME_INDEX = "theme_index";
+  static const themeIndex = "theme_index";
 }

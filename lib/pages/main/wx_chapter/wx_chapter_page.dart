@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
+import 'package:wan/api/api_service.dart';
+import 'package:wan/api/datas/wx_chapter.dart';
+import 'package:wan/assets/images.dart';
 import 'package:wan/pages/main/wx_chapter/articles/wx_chapter_articles.dart';
 
-import '../../../api/api_service.dart';
-import '../../../api/datas/wx_chapter.dart';
-import '../../../assets/images.dart';
+
 
 /// 微信公众号页面
 class WxChapterPage extends StatefulWidget {

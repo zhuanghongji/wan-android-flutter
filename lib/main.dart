@@ -19,7 +19,7 @@ void main() async {
 
 Future<bool> getTheme() async {
   SharedPreferences sp = await SharedPreferences.getInstance();
-  bool themeIndex = sp.getBool(SpConstant.THEME_INDEX);
+  bool themeIndex = sp.getBool(SpConstant.themeIndex);
   if (themeIndex == null) {
     themeIndex = false;
   }

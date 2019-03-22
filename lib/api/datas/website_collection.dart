@@ -1,4 +1,4 @@
-import 'dart:convert' show json;
+import 'dart:convert';
 
 /// 收藏的网站
 class WebsiteCollection {

@@ -1,4 +1,4 @@
-import 'wx_article.dart';
+import 'package:wan/api/datas/wx_article.dart';
 
 /// 微信文章列表
 class WxArticles {

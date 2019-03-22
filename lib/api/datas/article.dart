@@ -1,6 +1,6 @@
-import 'dart:convert' show json;
+import 'dart:convert';
 
-import 'tag.dart';
+import 'package:wan/api/datas/tag.dart';
 
 /// 文章
 class Article {
@@ -81,7 +81,7 @@ class Article {
     tags = jsonRes['tags'] == null ? null : [];
 
     for (var tagsItem in tags == null ? [] : jsonRes['tags']){
-      tags.add(tagsItem == null ? null : new Tag.fromJson(tagsItem));
+      tags.add(tagsItem == null ? null : Tag.fromJson(tagsItem));
     }
   }
 

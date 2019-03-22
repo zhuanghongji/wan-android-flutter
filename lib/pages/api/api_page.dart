@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../api/api_service.dart';
+import 'package:wan/api/api_service.dart';
 
+/// WAN ANDROID OPEN API 测试页面
 class ApiPage extends StatefulWidget {
   @override
   _ApiPageState createState() => _ApiPageState();
 }
 
 class _ApiPageState extends State<ApiPage> {
-  
   @override
   Widget build(BuildContext context) {
     return Container(

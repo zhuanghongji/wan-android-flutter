@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:wan/api/datas/banner.dart';
 
-import '../api/datas/banner.dart';
+
 
 class RefreshSafeArea extends StatelessWidget {
   final Widget child;

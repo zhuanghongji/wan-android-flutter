@@ -1,5 +1,3 @@
-// import 'package:flutter/material.dart';
-
 import 'package:event_bus/event_bus.dart';
 
 class App {

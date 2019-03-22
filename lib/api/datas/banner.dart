@@ -1,4 +1,4 @@
-import 'dart:convert' show json;
+import 'dart:convert';
 
 /// 首页 Banner
 class BannerItem {

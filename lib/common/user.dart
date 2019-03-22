@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wan/api/datas/user_info.dart';
+import 'package:wan/constant/sp_constant.dart';
 
-import '../api/datas/user_info.dart';
-import '../constant/sp_constant.dart';
+
 
 class User {
 
@@ -28,11 +29,11 @@ class User {
   Future<Null> getUserInfo() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
-    String username = sp.getString(SpConstant.USER_NAME);
+    String username = sp.getString(SpConstant.userName);
     if (username != null) {
       this.username = username;
     }
-    List<String> cs = sp.getStringList(SpConstant.COOKIES);
+    List<String> cs = sp.getStringList(SpConstant.cookies);
     if (cs != null) {
       this.cookies = cs;
     }
@@ -41,8 +42,8 @@ class User {
   
   saveInfo() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.setStringList(SpConstant.COOKIES, this.cookies);
-    sp.setString(SpConstant.USER_NAME, this.username);
+    sp.setStringList(SpConstant.cookies, this.cookies);
+    sp.setString(SpConstant.userName, this.username);
   }
 
   void clearUserInfo() {
@@ -52,7 +53,7 @@ class User {
 
   clearInfo() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.setStringList(SpConstant.COOKIES, null);
-    sp.setString(SpConstant.USER_NAME, null);
+    sp.setStringList(SpConstant.cookies, null);
+    sp.setString(SpConstant.userName, null);
   }
 }

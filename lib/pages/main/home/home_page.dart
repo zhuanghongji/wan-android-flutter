@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+
+import 'package:wan/api/api_service.dart';
+import 'package:wan/api/datas/article.dart';
+import 'package:wan/api/datas/articles.dart';
+import 'package:wan/api/datas/banner.dart';
+import 'package:wan/assets/images.dart';
+import 'package:wan/pages/main/main_drawer.dart';
 import 'package:wan/pages/web/web_page.dart';
+import 'package:wan/utils/time_line.dart';
+import 'package:wan/widget/custom_banner.dart';
 
-import '../../../api/api_service.dart';
-
-import '../../../api/datas/article.dart';
-import '../../../api/datas/articles.dart';
-import '../../../api/datas/banner.dart';
-import '../../../widget/custom_banner.dart';
-import '../../../pages/main/main_drawer.dart';
-import '../../../utils/time_line.dart';
-import '../../../assets/images.dart';
 
 class HomePage extends StatefulWidget {
   @override

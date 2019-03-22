@@ -1,4 +1,4 @@
-import 'dart:convert' show json;
+import 'dart:convert';
 
 /// 导航文章
 class NaviArticle {

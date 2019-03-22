@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../common/app.dart';
-import '../../event/login_event.dart';
+import 'package:wan/common/App.dart';
+import 'package:wan/event/login_event.dart';
+
+
 
 /// 主页面的抽屉组件
 class MainDrawer extends StatefulWidget {

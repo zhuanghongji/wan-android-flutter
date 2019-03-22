@@ -1,4 +1,4 @@
-import 'dart:convert' show json;
+import 'dart:convert';
 
 /// 热键
 class Hotkey {

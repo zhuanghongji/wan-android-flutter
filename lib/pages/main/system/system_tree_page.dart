@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+
+import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/system.dart';
+import 'package:wan/api/datas/system_tree.dart';
 import 'package:wan/pages/main/system/articles/system_articles.dart';
 
-import '../../../api/datas/system_tree.dart';
-import '../../../api/api_service.dart';
 
+/// 知识体系树页面
 class SystemTreePage extends StatefulWidget {
   @override
   _SystemTreePageState createState() => _SystemTreePageState();
 }
 
 class _SystemTreePageState extends State<SystemTreePage> {
-
   List<SystemTree> _systemTrees = [];
 
-  /// 获取体系知识数据
+  /// 获取知识体系树数据
   Future<void> _getSystemTrees() async {
     ApiService.getSystemTrees().then((List<SystemTree> systemTrees) {
       setState(() {

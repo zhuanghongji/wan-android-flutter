@@ -1,6 +1,8 @@
-import 'dart:convert' show json;
+import 'dart:convert';
 
-import 'navi_article.dart';
+import 'package:wan/api/datas/navi_article.dart';
+
+
 
 /// 导航 
 class Navi {

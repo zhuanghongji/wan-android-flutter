@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// 主页底部的 Tab 导航栏
 class MainBottomNavigationBar extends StatefulWidget {
 
   final int index;

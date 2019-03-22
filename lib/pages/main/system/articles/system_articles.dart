@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/article.dart';
 import 'package:wan/api/datas/articles.dart';
@@ -12,7 +13,7 @@ void gotoSystemArticlesPage(BuildContext context, String title, int cid) async {
   }));
 }
 
-/// 体系下的文章列表
+/// 知识体系下的文章列表
 class SystemArticlesPage extends StatefulWidget {
   final String title;
   final int cid;

@@ -1,5 +1,4 @@
-// import 'dart:convert' show json;
-import 'collection.dart';
+import 'package:wan/api/datas/collection.dart';
 
 /// 收藏列表
 class Collections {

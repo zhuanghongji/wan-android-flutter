@@ -1,6 +1,4 @@
-// import 'dart:convert' show json;
-
-import 'project.dart';
+import 'package:wan/api/datas/project.dart';
 
 /// 项目列表
 class Projects {
