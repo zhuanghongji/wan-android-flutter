@@ -3,19 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/project_tree.dart';
 import 'package:wan/assets/images.dart';
+import 'package:wan/pages/main/project/list/project_list_page.dart';
 
-/// 项目页面
-class ProjectPage extends StatefulWidget {
+/// 项目树页面
+class ProjectTreePage extends StatefulWidget {
   @override
-  _ProjectPageState createState() => _ProjectPageState();
+  _ProjectTreePageState createState() => _ProjectTreePageState();
 }
 
-class _ProjectPageState extends State<ProjectPage> {
+class _ProjectTreePageState extends State<ProjectTreePage> {
   List<ProjectTree> _projectTrees = [];
 
   /// 获取项目分类
   void _getProjects() {
-    ApiService.getProjects().then((List<ProjectTree> projectTrees) {
+    ApiService.getProjectTrees().then((List<ProjectTree> projectTrees) {
       setState(() {
         _projectTrees.clear();
         _projectTrees.addAll(projectTrees);
@@ -25,6 +26,7 @@ class _ProjectPageState extends State<ProjectPage> {
 
   void _onProjectTreeItemPressed(ProjectTree projectTree) {
     print(projectTree);
+    gotoProjectListPage(context, projectTree.name, projectTree.id);
   }
 
   List<Widget> _buildProjectTreeItems(List<ProjectTree> projectTrees) {

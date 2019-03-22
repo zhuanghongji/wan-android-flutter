@@ -90,7 +90,7 @@ class ApiService {
   /// 项目分类
   /// 
   /// 项目为包含一个分类，该接口返回整个分类。
-  static Future<List<ProjectTree>> getProjects() async {
+  static Future<List<ProjectTree>> getProjectTrees() async {
     return getList('/project/tree/json', (res) => ProjectTree.fromJson(res));
   }
 
@@ -99,8 +99,8 @@ class ApiService {
   /// 某一个分类下项目列表数据，分页展示
   /// - [pageNum] 页码：拼接在链接中，从1开始。
   /// - [cid] cid 分类的id，上面项目分类接口
-  static Future<List<Article>> getProjectsByCid(int pageNum, int cid) async {
-    return getList('/project/list/$pageNum/json?cid=$cid', (res) => Article.fromJson(res));
+  static Future<Projects> getProjectsByCid(int pageNum, int cid) async {
+    return get('/project/list/$pageNum/json?cid=$cid', (res) => Projects.fromJson(res));
   }
 
   /// 登录
