@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wan/pages/main/wx_chapter/articles/wx_chapter_articles.dart';
 
 import '../../../api/api_service.dart';
 import '../../../api/datas/wx_chapter.dart';
@@ -25,6 +26,7 @@ class _WxChapterPageState extends State<WxChapterPage> {
 
   void _onWxChapterItemPressed(WxChapter chapter) {
     print(chapter);
+    gotoWxChapterArticlesPage(context, chapter.name, chapter.id);
   }
 
   List<Widget> _buildWxChapterItems(List<WxChapter> wxChapters) {

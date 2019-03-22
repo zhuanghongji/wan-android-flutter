@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wan/pages/web/web_page.dart';
 
 import '../../../api/api_service.dart';
 
@@ -8,7 +9,6 @@ import '../../../api/datas/banner.dart';
 import '../../../widget/custom_banner.dart';
 import '../../../pages/main/main_drawer.dart';
 import '../../../utils/time_line.dart';
-import '../../web/WebPage.dart';
 import '../../../assets/images.dart';
 
 class HomePage extends StatefulWidget {

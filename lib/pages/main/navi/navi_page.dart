@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:wan/api/api_service.dart';
+import 'package:wan/api/datas/navi.dart';
+import 'package:wan/api/datas/navi_article.dart';
+import 'package:wan/pages/web/web_page.dart';
 
-import '../../../api/api_service.dart';
-import '../../../api/datas/navi.dart';
-import '../../../api/datas/navi_article.dart';
-
-import '../../web/WebPage.dart';
-
+/// 导航页面
 class NaviPage extends StatefulWidget {
   @override
   _NaviPageState createState() => _NaviPageState();

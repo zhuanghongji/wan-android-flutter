@@ -1,59 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:wan/api/api_service.dart';
-import 'package:wan/api/datas/article.dart';
-import 'package:wan/api/datas/articles.dart';
+import 'package:wan/api/datas/wx_article.dart';
+import 'package:wan/api/datas/wx_article_s.dart';
 import 'package:wan/assets/images.dart';
 import 'package:wan/pages/web/web_page.dart';
 import 'package:wan/utils/time_line.dart';
 
-void gotoSystemArticlesPage(BuildContext context, String title, int cid) async {
+void gotoWxChapterArticlesPage(BuildContext context, String chapterName, int chapterId) async {
   await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-    return SystemArticlesPage(title: title, cid: cid);
+    return WxChapterArticlesPage(chapterName: chapterName, chapterId: chapterId);
   }));
 }
 
-/// 体系下的文章列表
-class SystemArticlesPage extends StatefulWidget {
-  final String title;
-  final int cid;
 
-  SystemArticlesPage({ this.title, this.cid });
+/// 微信公众号对应的文章列表页面
+class WxChapterArticlesPage extends StatefulWidget {
+  final String chapterName;
+  final int chapterId;
+
+  WxChapterArticlesPage({ this.chapterName, this.chapterId });
 
   @override
-  _SystemArticlesPageState createState() => _SystemArticlesPageState();
+  _WxChapterArticlesPageState createState() => _WxChapterArticlesPageState();
 }
 
-class _SystemArticlesPageState extends State<SystemArticlesPage> {
+class _WxChapterArticlesPageState extends State<WxChapterArticlesPage> {
   /// 页码（文章）
   int _pageNum = 0;
   /// 文章列表
-  List<Article> _articles = [];
+  List<WxArticle> _wxArticles = [];
 
   ScrollController _scrollController = ScrollController();
 
-  Future<void> _getArticlesByCid() async {
+  Future<void> _getWxArticles() async {
     _pageNum = 0;
-    ApiService.getArticlesByCid(_pageNum, widget.cid).then((Articles articles) {
+    ApiService.getWxArticles(widget.chapterId, _pageNum).then((WxArticles wxArticles) {
       setState(() {
-        _articles.clear();
-        _articles.addAll(articles.datas);
+        _wxArticles.clear();
+        _wxArticles.addAll(wxArticles.datas);
       });
     });
   }
 
-  void _moreArticlesByCid() {
+  void _moreWxArticles() {
     _pageNum++;
-    ApiService.getArticlesByCid(_pageNum, widget.cid).then((Articles articles) {
+    ApiService.getWxArticles(widget.chapterId, _pageNum).then((WxArticles wxArticles) {
       setState(() {
-        _articles.addAll(articles.datas);
+        _wxArticles.addAll(wxArticles.datas);
       });
     });
   }
 
-  Widget _buildArticleItem(BuildContext context, int index) {
+  Widget _buildWxArticleItem(BuildContext context, int index) {
     // 文章
-    if (index < _articles.length) {
-      var article =_articles[index];
+    if (index < _wxArticles.length) {
+      var article =_wxArticles[index];
       return InkWell(
         onTap: () {
           gotoWebPage(context, article.title, article.link);
@@ -128,14 +129,14 @@ class _SystemArticlesPageState extends State<SystemArticlesPage> {
     );
   }
 
-  @override
+    @override
   void initState() {
     super.initState();
-    _getArticlesByCid();
+    _getWxArticles();
     _scrollController.addListener((){
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         print('滑动到了最底部');
-        _moreArticlesByCid();
+        _moreWxArticles();
       }
     });
   }
@@ -150,19 +151,19 @@ class _SystemArticlesPageState extends State<SystemArticlesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.chapterName),
       ),
       body: RefreshIndicator(
-        onRefresh: _getArticlesByCid,
+        onRefresh: _getWxArticles,
         child: ListView.separated(
-          itemBuilder: _buildArticleItem,
+          itemBuilder: _buildWxArticleItem,
           separatorBuilder: (BuildContext context, int index) {
             return Container(
               height: 0.5,
               color: Colors.black26,
             );
           },
-          itemCount: _articles.length + 1,
+          itemCount: _wxArticles.length + 1,
           controller: _scrollController,
         ),
       ),
