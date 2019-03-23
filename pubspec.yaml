@@ -63,6 +63,8 @@ flutter:
    - lib/assets/images/ic_kiwi.png
    - lib/assets/images/ic_nut.png
    - lib/assets/images/ic_pear.png
+   - lib/assets/images/ic_bread.png
+   - lib/assets/images/ic_milk.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

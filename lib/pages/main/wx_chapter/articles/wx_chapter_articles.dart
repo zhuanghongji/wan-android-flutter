@@ -4,14 +4,8 @@ import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/wx_article.dart';
 import 'package:wan/api/datas/wx_article_s.dart';
 import 'package:wan/assets/images.dart';
-import 'package:wan/pages/web/web_page.dart';
+import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
-
-void gotoWxChapterArticlesPage(BuildContext context, String chapterName, int chapterId) async {
-  await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-    return WxChapterArticlesPage(chapterName: chapterName, chapterId: chapterId);
-  }));
-}
 
 
 /// 微信公众号对应的文章列表页面
@@ -58,7 +52,7 @@ class _WxChapterArticlesPageState extends State<WxChapterArticlesPage> {
       var article =_wxArticles[index];
       return InkWell(
         onTap: () {
-          gotoWebPage(context, article.title, article.link);
+          WRouter.gotoWebPage(context, article.title, article.link);
         },
         child: Column(
           children: <Widget>[

@@ -4,6 +4,7 @@ import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/navi.dart';
 import 'package:wan/api/datas/navi_article.dart';
 import 'package:wan/pages/web/web_page.dart';
+import 'package:wan/router/w_router.dart';
 
 /// 导航页面
 class NaviPage extends StatefulWidget {
@@ -24,7 +25,7 @@ class _NaviPageState extends State<NaviPage> {
   }
 
   void _onNaviArticlePressed(NaviArticle article) {
-    gotoWebPage(context, article.title, article.link);
+    WRouter.gotoWebPage(context, article.title, article.link);
   }
 
   /// 构建每一个 SystemTree

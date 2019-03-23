@@ -4,16 +4,11 @@ import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/article.dart';
 import 'package:wan/api/datas/articles.dart';
 import 'package:wan/assets/images.dart';
-import 'package:wan/pages/web/web_page.dart';
+import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
 
-void gotoSystemArticlesPage(BuildContext context, String title, int cid) async {
-  await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-    return SystemArticlesPage(title: title, cid: cid);
-  }));
-}
 
-/// 知识体系下的文章列表
+/// 知识体系具体分支下的文章列表页面
 class SystemArticlesPage extends StatefulWidget {
   final String title;
   final int cid;
@@ -57,7 +52,7 @@ class _SystemArticlesPageState extends State<SystemArticlesPage> {
       var article =_articles[index];
       return InkWell(
         onTap: () {
-          gotoWebPage(context, article.title, article.link);
+          WRouter.gotoWebPage(context, article.title, article.link);
         },
         child: Column(
           children: <Widget>[

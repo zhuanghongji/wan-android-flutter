@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wan/assets/images.dart';
 
 import 'package:wan/common/App.dart';
-import 'package:wan/event/login_event.dart';
+import 'package:wan/router/w_router.dart';
 
 
 
@@ -37,9 +37,7 @@ class _MainDrawerState extends State<MainDrawer> {
             color: Colors.white,
           ),
         ),
-        onTap: (){ 
-          print('gotoLoginPage'); 
-        },
+        onTap: (){ WRouter.gotoLoginPage(context); },
       ),
       accountEmail: null,
       currentAccountPicture: CircleAvatar(
@@ -56,47 +54,14 @@ class _MainDrawerState extends State<MainDrawer> {
     );
   }
 
-  Widget _buildMyCollections() {
+  Widget _buildItem(String text, String imagePath, Function onTap) {
     return ListTile(
       title: Text(
-        '我的收藏',
+        text,
         textAlign: TextAlign.left,
       ),
-      leading: Image.asset(ImageAsset.icIceCream, width: 24, height: 24,),
-      onTap: () { print('我的收藏');},
-    );
-  }
-
-  Widget _buildFriendWebsite() {
-    return ListTile(
-      title: Text(
-        '常用网站',
-        textAlign: TextAlign.left,
-      ),
-      leading: Image.asset(ImageAsset.icPear, width: 24, height: 24,),
-      onTap: () { print('常用网站');},
-    );
-  }
-
-  Widget _buildSetting() {
-    return ListTile(
-      title: Text(
-        '设置',
-        textAlign: TextAlign.left,
-      ),
-      leading: Image.asset(ImageAsset.icHamburg, width: 24, height: 24,),
-      onTap: () { print('设置');},
-    );
-  }
-
-  Widget _buildAbout() {
-    return ListTile(
-      title: Text(
-        '关于',
-        textAlign: TextAlign.left,
-      ),
-      leading: Image.asset(ImageAsset.icKiwi, width: 24, height: 24,),
-      onTap: () { print('关于');},
+      leading: Image.asset(imagePath, width: 24, height: 24,),
+      onTap: onTap,
     );
   }
 
@@ -118,10 +83,12 @@ class _MainDrawerState extends State<MainDrawer> {
       child: Column(
         children: <Widget>[
           _buildDrawerHeader(),
-          _buildMyCollections(),
-          _buildFriendWebsite(),
-          _buildSetting(),
-          _buildAbout(),
+          _buildItem('我的收藏', ImageAsset.icIceCream, (){ WRouter.gotoMyCollectionsPage(context); }),
+          _buildItem('常用网站', ImageAsset.icPear, (){ WRouter.gotoFriendWebsitePage(context); }),
+          _buildItem('白板', ImageAsset.icMilk, (){ WRouter.gotoWhiteBoardPage(context); }),
+          _buildItem('模板', ImageAsset.icBread, (){ WRouter.gotoTemplatePage(context); }),
+          _buildItem('设置', ImageAsset.icHamburg, (){ WRouter.gotoSettingsPage(context); }),
+          _buildItem('关于', ImageAsset.icKiwi, (){ WRouter.gotoAboutPage(context); }),
         ],
       ),
     );

@@ -21,4 +21,6 @@ class ImageAsset {
   static const icKiwi = '$dir/ic_kiwi.png';
   static const icNut = '$dir/ic_nut.png';
   static const icPear = '$dir/ic_pear.png';
+  static const icBread = '$dir/ic_bread.png';
+  static const icMilk = '$dir/ic_milk.png';
 }

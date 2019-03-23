@@ -6,7 +6,7 @@ import 'package:wan/api/datas/articles.dart';
 import 'package:wan/api/datas/banner.dart';
 import 'package:wan/assets/images.dart';
 import 'package:wan/pages/main/main_drawer.dart';
-import 'package:wan/pages/web/web_page.dart';
+import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
 import 'package:wan/widget/custom_banner.dart';
 
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
 
   void _onBannerItemTap(BannerItem item, int index) {
     print('_onBannerItemTap: item = $item, index = $index');
-    gotoWebPage(context, item.title, item.url);
+    WRouter.gotoWebPage(context, item.title, item.url);
   }
 
   Widget _buildArticleItem(BuildContext context, int index) {
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
       var article =_articles[index - 1];
       return InkWell(
         onTap: () {
-          gotoWebPage(context, article.title, article.link);
+          WRouter.gotoWebPage(context, article.title, article.link);
         },
         child: Column(
           children: <Widget>[

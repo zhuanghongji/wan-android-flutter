@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/wx_chapter.dart';
 import 'package:wan/assets/images.dart';
-import 'package:wan/pages/main/wx_chapter/articles/wx_chapter_articles.dart';
-
-
+import 'package:wan/router/w_router.dart';
 
 /// 微信公众号页面
 class WxChapterPage extends StatefulWidget {
@@ -28,7 +26,7 @@ class _WxChapterPageState extends State<WxChapterPage> {
 
   void _onWxChapterItemPressed(WxChapter chapter) {
     print(chapter);
-    gotoWxChapterArticlesPage(context, chapter.name, chapter.id);
+    WRouter.gotoWxChapterArticlesPage(context, chapter.name, chapter.id);
   }
 
   List<Widget> _buildWxChapterItems(List<WxChapter> wxChapters) {

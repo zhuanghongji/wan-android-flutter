@@ -44,12 +44,6 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
           _onSearchPress();
         },
       ),
-      IconButton(
-        icon: Icon(Icons.security),
-        onPressed: () {
-          _onApiPress();
-        },
-      )
     ] : null;
   }
 

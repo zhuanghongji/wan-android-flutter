@@ -3,14 +3,10 @@ import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/project.dart';
 import 'package:wan/api/datas/projects.dart';
 import 'package:wan/assets/images.dart';
-import 'package:wan/pages/web/web_page.dart';
+import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
 
-void gotoProjectListPage(BuildContext context, String projectTreeName, int projectTreeId) async {
-  await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-    return ProjectListPage(projectTreeName: projectTreeName, projectTreeId: projectTreeId);
-  }));
-}
+
 
 /// 项目列表页面
 class ProjectListPage extends StatefulWidget {
@@ -56,7 +52,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
       var project =_projects[index];
       return InkWell(
         onTap: () {
-          gotoWebPage(context, project.title, project.link);
+          WRouter.gotoWebPage(context, project.title, project.link);
         },
         child: Column(
           children: <Widget>[

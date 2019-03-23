@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/project_tree.dart';
 import 'package:wan/assets/images.dart';
-import 'package:wan/pages/main/project/list/project_list_page.dart';
+import 'package:wan/router/w_router.dart';
+
 
 /// 项目树页面
 class ProjectTreePage extends StatefulWidget {
@@ -26,7 +27,7 @@ class _ProjectTreePageState extends State<ProjectTreePage> {
 
   void _onProjectTreeItemPressed(ProjectTree projectTree) {
     print(projectTree);
-    gotoProjectListPage(context, projectTree.name, projectTree.id);
+    WRouter.gotoProjectListPage(context, projectTree.name, projectTree.id);
   }
 
   List<Widget> _buildProjectTreeItems(List<ProjectTree> projectTrees) {

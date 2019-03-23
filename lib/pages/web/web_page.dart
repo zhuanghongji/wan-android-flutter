@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 
-void gotoWebPage(BuildContext context, String title, String url) async {
-  await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-    return WebPage(title: title, url: url);
-  }));
-}
-
 /// 通用 Web 页面
 class WebPage extends StatefulWidget {
 
