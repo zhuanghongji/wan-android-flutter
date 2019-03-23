@@ -60,6 +60,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     App.eventBus = EventBus();
     _themeData =GlobalConfig.getThemeData(widget.themeIndex);
+    _registerThemeEvent();
   }
 
   @override

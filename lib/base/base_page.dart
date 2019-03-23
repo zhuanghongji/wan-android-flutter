@@ -33,7 +33,7 @@ abstract class BasePage extends StatefulWidget {
 }
 
 /// Base Page State
-abstract class BasePageState extends State<BasePage> {
+abstract class BasePageState<T extends BasePage> extends State<T> {
   /// true 显示应用栏；false 不显示
   bool _isShowAppBar = true;
 

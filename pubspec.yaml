@@ -55,6 +55,14 @@ flutter:
    - lib/assets/images/ic_empty_face.png
    - lib/assets/images/ic_error.png
    - lib/assets/images/ic_error_text.png
+   - lib/assets/images/ic_avatar.png
+   - lib/assets/images/bg_drawer_1.jpg
+   - lib/assets/images/bg_drawer_2.jpg
+   - lib/assets/images/ic_hamburg.png
+   - lib/assets/images/ic_ice_cream.png
+   - lib/assets/images/ic_kiwi.png
+   - lib/assets/images/ic_nut.png
+   - lib/assets/images/ic_pear.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
