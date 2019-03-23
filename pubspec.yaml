@@ -51,6 +51,10 @@ flutter:
   assets:
    - lib/assets/images/ic_man.png
    - lib/assets/images/ic_woman.png
+   - lib/assets/images/ic_empty.png
+   - lib/assets/images/ic_empty_face.png
+   - lib/assets/images/ic_error.png
+   - lib/assets/images/ic_error_text.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
