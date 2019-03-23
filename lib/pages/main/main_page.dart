@@ -24,8 +24,6 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
   var _index = 0;
   var _pages = <Widget>[];
   var _titles = ['首页', '知识体系', '公众号', '导航', '项目'];
-
-  var _showAppBar = true;
   var _showDrawer = true;
 
   Widget _getAppBarWidget(BuildContext context) {
@@ -55,18 +53,9 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
     ));
   }
 
-  void _onApiPress() async {
-    await Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) {
-        return ApiPage();
-      }
-    ));
-  }
-
   void _onTabChanged(int newValue) {
     setState(() {
       _index = newValue;
-      _showAppBar = _index == 0 || _index == 1 || _index == 3;
       _showDrawer = _index == 0;
     });
   }
@@ -110,7 +99,6 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
       child: DefaultTabController(
         length: _pages.length,
         child: Scaffold(
-          // appBar: _showAppBar ? _getAppBarWidget(context) : null,
           appBar: _getAppBarWidget(context),
           drawer: _showDrawer ? MainDrawer() : null,
           body: IndexedStack(

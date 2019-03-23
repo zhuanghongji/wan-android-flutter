@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wan/assets/images.dart';
-
-import 'package:wan/common/App.dart';
 import 'package:wan/router/w_router.dart';
-
 
 
 /// 主页面的抽屉组件
@@ -13,20 +10,6 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-
-  void _registerThemeEvent() {
-    // App.eventBus
-    //   .on<LoginEvent>()
-    //   .listen((LoginEvent event) => _changeUI());
-  }
-
-  void _changeUI() {
-    setState(() {
-      print('Change ui after login.');
-      // Todo
-    });
-  }
-
   Widget _buildDrawerHeader() {
     return UserAccountsDrawerHeader(
       accountName: InkWell(
@@ -66,21 +49,10 @@ class _MainDrawerState extends State<MainDrawer> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _registerThemeEvent();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    App.eventBus.destroy();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Column(
+      child: ListView(
+        padding: EdgeInsets.zero,
         children: <Widget>[
           _buildDrawerHeader(),
           _buildItem('我的收藏', ImageAsset.icIceCream, (){ WRouter.gotoMyCollectionsPage(context); }),

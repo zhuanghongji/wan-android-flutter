@@ -34,7 +34,7 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> with 
       currentIndex: _currentIndex,
       onTap: _onTap,
       type: BottomNavigationBarType.fixed,
-      fixedColor: Colors.blue,
+      fixedColor: Colors.black,
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
