@@ -23,4 +23,14 @@ class ImageAsset {
   static const icPear = '$dir/ic_pear.png';
   static const icBread = '$dir/ic_bread.png';
   static const icMilk = '$dir/ic_milk.png';
+  static const icPizza = '$dir/ic_pizza.png';
+  static const icBanana = '$dir/ic_banana.png';
+  static const icCherry = '$dir/ic_cherry.png';
+  static const icChips = '$dir/ic_chips.png';
+  static const icChocolate = '$dir/ic_chocolate.png';
+  static const icDonut = '$dir/ic_donut.png';
+  static const icMacadamia_nut = '$dir/ic_macadamia_nut.png';
+  static const icPistachio = '$dir/ic_pistachio.png';
+  static const icStrawberry = '$dir/ic_strawberry.png';
+  static const icWatermelon = '$dir/ic_watermelon.png';
 }

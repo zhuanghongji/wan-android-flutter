@@ -65,6 +65,16 @@ flutter:
    - lib/assets/images/ic_pear.png
    - lib/assets/images/ic_bread.png
    - lib/assets/images/ic_milk.png
+   - lib/assets/images/ic_pizza.png
+   - lib/assets/images/ic_banana.png
+   - lib/assets/images/ic_cherry.png
+   - lib/assets/images/ic_chips.png
+   - lib/assets/images/ic_chocolate.png
+   - lib/assets/images/ic_donut.png
+   - lib/assets/images/ic_macadamia_nut.png
+   - lib/assets/images/ic_pistachio.png
+   - lib/assets/images/ic_strawberry.png
+   - lib/assets/images/ic_watermelon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
