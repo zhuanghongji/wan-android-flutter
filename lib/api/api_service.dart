@@ -31,9 +31,23 @@ class ApiService {
     return respList.data;
   }
 
-  /// 在 HttpManager 上封装的 POST 请求
-  static Future<Map<String, dynamic>> post(String path, Map<String, dynamic> params) async {
-    return await HttpManager().post(path, params);
+  // /// 在 HttpManager 上封装的 POST 请求
+  // static Future<Map<String, dynamic>> post(String path, Map<String, dynamic> params) async {
+  //   return await HttpManager().post(path, params);
+  // }
+
+  /// 在 HttpManager 上封装的 POST 请求，返回结果的 data 节点为 object
+  static Future<T> post<T>(String path, Function buildFun, [Map<String, dynamic> params]) async {
+    Map<String, dynamic> jsonRes = await HttpManager().post(path, params);
+    BaseResp<T> resp = BaseResp.fromJson(jsonRes, buildFun);
+    return resp.data;
+  }
+
+  /// 在 HttpManager 上封装的 POST 请求，返回结果的 data 节点为 List<object>
+  static Future<List<T>> postList<T>(String path, Function buildFun, [Map<String, dynamic> params]) async {
+    Map<String, dynamic> jsonRes = await HttpManager().post(path, params);
+    BaseRespList<T> respList = BaseRespList.fromJson(jsonRes, buildFun);
+    return respList.data;
   }
 
   /// 首页 Banner
@@ -107,7 +121,7 @@ class ApiService {
   /// 
   /// 登录后会在cookie中返回账号密码，只要在客户端做cookie持久化存储即可自动登录验证。
   static Future<dynamic> login(String username, String password) async {
-    return post('/user/login', {
+    return post('/user/login', null, {
       'username': username,
       'password': password,
     });
@@ -115,7 +129,7 @@ class ApiService {
 
   /// 注册
   static Future<dynamic> register(String username, String password, String repassword) async {
-    return post('/user/register', {
+    return post('/user/register', null, {
       'username': username,
       'password': password,
       'repassword': repassword,
@@ -144,7 +158,7 @@ class ApiService {
   /// 
   /// 意链接中的数字，为需要收藏的id.
   static Future<dynamic> collectArticle(int articleId) async {
-    return post('/lg/collect/$articleId/json', {});
+    return post('/lg/collect/$articleId/json', null, {});
   }
 
   /// 收藏站外文章
@@ -153,7 +167,7 @@ class ApiService {
   /// - [author] 作者
   /// - [link] 链接
   static Future<dynamic> collectAnotherArticle(String title, String author, String link) async {
-    return post('/lg/collect/add/json', {
+    return post('/lg/collect/add/json', null, {
       'title': title,
       'author': author,
       'link': link,
@@ -168,7 +182,7 @@ class ApiService {
   /// - 文章列表 [cancelArticleCollection]
   /// - 我的收藏页面（该页面包含自己录入的内容）[uncollect]
   static Future<dynamic> cancelArticleCollection(int articleId) async {
-    return post('/lg/uncollect_originId/$articleId/json', {});
+    return post('/lg/uncollect_originId/$articleId/json', null, {});
   }
 
   /// 取消收藏（我的收藏页面，该页面包含自己录入的内容）
@@ -177,7 +191,7 @@ class ApiService {
   /// - 文章列表 [cancelArticleCollection]
   /// - 我的收藏页面（该页面包含自己录入的内容）[uncollect]
   static Future<dynamic> uncollect(int articleId) async {
-    return post('/lg/uncollect/$articleId/json', {});
+    return post('/lg/uncollect/$articleId/json', null, {});
   }
 
   /// 收藏网站列表
@@ -190,7 +204,7 @@ class ApiService {
   /// - [name] 网址名称
   /// - [link] 网址链接
   static Future<dynamic> collectAddTool(String name, String link) async {
-    return post('/lg/collect/addtool/json', {
+    return post('/lg/collect/addtool/json', null, {
       'name': name,
       'link': link
     });
@@ -202,7 +216,7 @@ class ApiService {
   /// - [name] 网址名称
   /// - [link] 网址链接
   static Future<dynamic> collectUpdateTool(int id, String name, String link) async {
-    return post('/lg/collect/updatetool/json', {
+    return post('/lg/collect/updatetool/json', null, {
       'id': id,
       'name': name,
       'link': link
@@ -213,7 +227,7 @@ class ApiService {
   /// 
   /// - [id] id 
   static Future<dynamic> collectDeleteTools(int id) async {
-    return post('/lg/collect/delete/json', {
+    return post('/lg/collect/delete/json', null, {
       'id': id,
     });
   }
@@ -222,8 +236,8 @@ class ApiService {
   /// 
   /// - [pageNum] 页码：拼接在链接上，从0开始
   /// - [key] 搜索关键词
-  static Future<dynamic> query(int pageNum, String key) async {
-    return post('/article/query/$pageNum/json', {
+  static Future<Articles> queryArticles(int pageNum, String key) async {
+    return post('/article/query/$pageNum/json', (res) => Articles.fromJson(res), {
       'k': key,
     });
   }
@@ -239,7 +253,7 @@ class ApiService {
   /// type 可以用于，在app 中预定义几个类别：例如 工作1；生活2；娱乐3；新增的时候传入0，1，2，查询的时候，传入type 进行筛选；
   /// priority 主要用于定义优先级，在app 中预定义几个优先级：重要（1），一般（2）等，查询的时候，传入priority 进行筛选；
   static Future<dynamic> addTodo(String title, String content, [String date, int type, int priority]) async {
-    return post('/lg/todo/add/json', {
+    return post('/lg/todo/add/json', null, {
       'title': title,
       'content': content,
       'date': date,
@@ -257,7 +271,7 @@ class ApiService {
   /// 比如当前 todo status=1，更新时没有带上，会认为被重置。
   static Future<dynamic> updateTodo(int todoId, String title, String content, String date, 
       [int status, int type, int priority]) async {
-    return post('/lg/todo/update/$todoId/json', {
+    return post('/lg/todo/update/$todoId/json', null, {
       'title': title,
       'content': content,
       'date': date,
@@ -271,7 +285,7 @@ class ApiService {
   /// 
   /// - [id] 拼接在链接上，为唯一标识
   static Future<dynamic> deleteTodo(int todoId) async {
-    return post('/lg/todo/delete/$todoId/json', {});
+    return post('/lg/todo/delete/$todoId/json', null, {});
   }
 
   /// 仅更新完成状态 Todo
@@ -281,7 +295,7 @@ class ApiService {
   /// 
   /// 只会变更 status，未完成->已经完成 or 已经完成->未完成。
   static Future<dynamic> doneTodo(int todoId, int status) async {
-    return post('/lg/todo/done/$todoId/json', {});
+    return post('/lg/todo/done/$todoId/json', null, {});
   }
 
   /// Todo 列表
@@ -292,7 +306,7 @@ class ApiService {
   /// - [priority] 创建时传入的优先级；默认全部展示
   /// - [orderby] 1:完成日期顺序；2.完成日期逆序；3.创建日期顺序；4.创建日期逆序(默认)；
   static Future<dynamic> getTodos(int pageNum, int status, int type, int priority, int orderby) async {
-    return post('/lg/todo/v2/list/$pageNum/json', {
+    return post('/lg/todo/v2/list/$pageNum/json', null, {
       'status': status,
       'type': type,
       'priority': priority,
