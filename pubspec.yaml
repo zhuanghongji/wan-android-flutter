@@ -75,6 +75,10 @@ flutter:
    - lib/assets/images/ic_pistachio.png
    - lib/assets/images/ic_strawberry.png
    - lib/assets/images/ic_watermelon.png
+   - lib/assets/images/ic_clear.png
+   - lib/assets/images/ic_delete.png
+   - lib/assets/images/ic_eye_close.png
+   - lib/assets/images/ic_eye_open.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

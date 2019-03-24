@@ -5,6 +5,7 @@ import 'package:wan/api/datas/articles.dart';
 import 'package:wan/api/datas/banner.dart';
 import 'package:wan/api/datas/collections.dart';
 import 'package:wan/api/datas/hotkey.dart';
+import 'package:wan/api/datas/login_info.dart';
 import 'package:wan/api/datas/navi.dart';
 import 'package:wan/api/datas/project_tree.dart';
 import 'package:wan/api/datas/projects.dart';
@@ -120,8 +121,8 @@ class ApiService {
   /// 登录
   /// 
   /// 登录后会在cookie中返回账号密码，只要在客户端做cookie持久化存储即可自动登录验证。
-  static Future<dynamic> login(String username, String password) async {
-    return post('/user/login', null, {
+  static Future<LoginInfo> login(String username, String password) async {
+    return post('/user/login', (res) => LoginInfo.fromJson(res), {
       'username': username,
       'password': password,
     });

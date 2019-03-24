@@ -33,4 +33,8 @@ class ImageAsset {
   static const icPistachio = '$dir/ic_pistachio.png';
   static const icStrawberry = '$dir/ic_strawberry.png';
   static const icWatermelon = '$dir/ic_watermelon.png';
+  static const icClear = '$dir/ic_clear.png';
+  static const icDelete = '$dir/ic_delete.png';
+  static const icEyeClose = '$dir/ic_eye_close.png';
+  static const icEyeOpen = '$dir/ic_eye_open.png';
 }

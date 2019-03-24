@@ -8,6 +8,7 @@ import 'package:wan/pages/login/login_page.dart';
 import 'package:wan/pages/main/project/list/project_list_page.dart';
 import 'package:wan/pages/main/system/articles/system_articles_page.dart';
 import 'package:wan/pages/main/wx_chapter/articles/wx_chapter_articles.dart';
+import 'package:wan/pages/register/register_page.dart';
 import 'package:wan/pages/search/search_page.dart';
 import 'package:wan/pages/settings/settings_page.dart';
 import 'package:wan/pages/template/template_page.dart';
@@ -40,6 +41,13 @@ class WRouter {
   static void gotoLoginPage(BuildContext context) async {
     await Navigator.of(context).push(MaterialPageRoute(builder: (context){
       return LoginPage();
+    }));
+  }
+
+  /// 跳转到：注册页面
+  static void gotoRegisterPage(BuildContext context) async {
+    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
+      return RegisterPage();
     }));
   }
 
