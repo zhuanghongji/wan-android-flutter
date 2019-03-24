@@ -129,8 +129,8 @@ class ApiService {
   }
 
   /// 注册
-  static Future<dynamic> register(String username, String password, String repassword) async {
-    return post('/user/register', null, {
+  static Future<LoginInfo> register(String username, String password, String repassword) async {
+    return post('/user/register', (res) => LoginInfo.fromJson(res), {
       'username': username,
       'password': password,
       'repassword': repassword,
