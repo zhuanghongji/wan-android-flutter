@@ -1,4 +1,6 @@
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:wan/http/interceptors/CookieInterceptor.dart';
 
 class HttpManager {
 
@@ -11,13 +13,16 @@ class HttpManager {
   factory HttpManager() => _instance;
 
   HttpManager._internal() {
-    if (_client ==null) {
+    if (_client == null) {
       BaseOptions options = BaseOptions();
       options.baseUrl = BASE_URL;
       options.receiveTimeout = 1000 * 10;  // 10 秒
       options.connectTimeout = 1000 * 5;   // 5 秒
       _client = Dio(options);
     }
+    // _client.interceptors.add(CookieInterceptor());
+    _client.interceptors.add(CookieManager(CookieJar()));
+    _client.interceptors.add(LogInterceptor());
   }
   
   /// GET 请求
@@ -31,7 +36,7 @@ class HttpManager {
     } else {
       response = await _client.get(path);
     }
-    print('HttpManager: get, path = $path, params = $params, response = $response');
+    // print('HttpManager: get, path = $path, params = $params, response = $response');
     return response.data;
   }
 
@@ -46,7 +51,7 @@ class HttpManager {
     } else {
       response = await _client.post(path);
     }
-    print('HttpManager: post, path = $path, params = $params, response = $response');
+    // print('HttpManager: post, path = $path, params = $params, response = $response');
     return response.data;
   }
 }

@@ -30,6 +30,7 @@ dependencies:
   fluttertoast: ^3.0.3
   event_bus: ^1.0.3
   flutter_slidable: ^0.4.9
+  cookie_jar: ^1.0.0
 
 dev_dependencies:
   flutter_test:
