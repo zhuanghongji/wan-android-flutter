@@ -5,10 +5,8 @@ import 'package:wan/pages/main/home/home_page.dart';
 import 'package:wan/pages/main/main_bottom_bar.dart';
 import 'package:wan/pages/main/main_drawer.dart';
 import 'package:wan/pages/main/navi/navi_page.dart';
-import 'package:wan/pages/main/project/project_tree_page.dart';
 import 'package:wan/pages/main/system/system_tree_page.dart';
 import 'package:wan/pages/main/todo/todo_page.dart';
-import 'package:wan/pages/main/wx_chapter/wx_chapter_page.dart';
 import 'package:wan/pages/search/search_page.dart';
 
 

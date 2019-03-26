@@ -5,14 +5,14 @@ import 'package:wan/pages/board/white_board_page.dart';
 import 'package:wan/pages/collections/my_collections_page.dart';
 import 'package:wan/pages/friend/friend_website_page.dart';
 import 'package:wan/pages/login/login_page.dart';
-import 'package:wan/pages/main/project/list/project_list_page.dart';
-import 'package:wan/pages/main/system/articles/system_articles_page.dart';
-import 'package:wan/pages/main/wx_chapter/articles/wx_chapter_articles.dart';
+import 'package:wan/pages/project_list/project_list_page.dart';
 import 'package:wan/pages/register/register_page.dart';
 import 'package:wan/pages/search/search_page.dart';
 import 'package:wan/pages/settings/settings_page.dart';
+import 'package:wan/pages/system_articles/system_articles_page.dart';
 import 'package:wan/pages/template/template_page.dart';
 import 'package:wan/pages/web/web_page.dart';
+import 'package:wan/pages/wx_chapter_articles/wx_chapter_articles.dart';
 
 class WRouter {
 

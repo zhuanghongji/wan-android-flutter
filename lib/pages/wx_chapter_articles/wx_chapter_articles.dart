@@ -1,58 +1,59 @@
 import 'package:flutter/material.dart';
+
 import 'package:wan/api/api_service.dart';
-import 'package:wan/api/datas/project.dart';
-import 'package:wan/api/datas/projects.dart';
+import 'package:wan/api/datas/wx_article.dart';
+import 'package:wan/api/datas/wx_article_s.dart';
 import 'package:wan/assets/images.dart';
+import 'package:wan/base/base_page.dart';
 import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
 
 
+/// 微信公众号对应的文章列表页面
+class WxChapterArticlesPage extends BasePage {
+  final String chapterName;
+  final int chapterId;
 
-/// 项目列表页面
-class ProjectListPage extends StatefulWidget {
-  final String projectTreeName;
-  final int projectTreeId;
-
-  ProjectListPage({ this.projectTreeName, this.projectTreeId });
+  WxChapterArticlesPage({ this.chapterName, this.chapterId });
 
   @override
-  _ProjectListPageState createState() => _ProjectListPageState();
+  BasePageState<BasePage> getPageState() => _WxChapterArticlesPageState();
 }
 
-class _ProjectListPageState extends State<ProjectListPage> {
+class _WxChapterArticlesPageState extends BasePageState<WxChapterArticlesPage> {
   /// 页码（文章）
   int _pageNum = 0;
-  /// 项目列表
-  List<Project> _projects = [];
+  /// 文章列表
+  List<WxArticle> _wxArticles = [];
 
   ScrollController _scrollController = ScrollController();
 
-  Future<void> _getProjectsByCid() async {
-    _pageNum = 1;
-    ApiService.getProjectsByCid(_pageNum, widget.projectTreeId).then((Projects projects) {
+  Future<void> _getWxArticles() async {
+    _pageNum = 0;
+    ApiService.getWxArticles(widget.chapterId, _pageNum).then((WxArticles wxArticles) {
       setState(() {
-        _projects.clear();
-        _projects.addAll(projects.datas);
+        _wxArticles.clear();
+        _wxArticles.addAll(wxArticles.datas);
       });
     });
   }
 
-  void _moreProjectsByCid() {
+  void _moreWxArticles() {
     _pageNum++;
-    ApiService.getProjectsByCid(_pageNum, widget.projectTreeId).then((Projects projects) {
+    ApiService.getWxArticles(widget.chapterId, _pageNum).then((WxArticles wxArticles) {
       setState(() {
-        _projects.addAll(projects.datas);
+        _wxArticles.addAll(wxArticles.datas);
       });
     });
   }
 
-  Widget _buildProjectItem(BuildContext context, int index) {
+  Widget _buildWxArticleItem(BuildContext context, int index) {
     // 文章
-    if (index < _projects.length) {
-      var project =_projects[index];
+    if (index < _wxArticles.length) {
+      var article =_wxArticles[index];
       return InkWell(
         onTap: () {
-          WRouter.gotoWebPage(context, project.title, project.link);
+          WRouter.gotoWebPage(context, article.title, article.link);
         },
         child: Column(
           children: <Widget>[
@@ -67,13 +68,13 @@ class _ProjectListPageState extends State<ProjectListPage> {
                   ),
                   Text('  '),
                   Text(
-                    project.author,
+                    article.author,
                     style:TextStyle(fontSize: 14),
                     textAlign: TextAlign.start,
                   ),
                   Expanded(
                     child: Text(
-                      TimelineUtil.format(project.publishTime),
+                      TimelineUtil.format(article.publishTime),
                       style: TextStyle(fontSize: 14),
                       textAlign: TextAlign.right,
                     ),
@@ -87,7 +88,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                        project.title,
+                        article.title,
                         maxLines: 2,
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.left,
@@ -100,7 +101,7 @@ class _ProjectListPageState extends State<ProjectListPage> {
               padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
               child: Row(
                 children: <Widget>[
-                  Text(project.superChapterName,
+                  Text(article.superChapterName,
                     style: TextStyle(fontSize: 14),
                     textAlign: TextAlign.left,
                   ),
@@ -124,14 +125,15 @@ class _ProjectListPageState extends State<ProjectListPage> {
     );
   }
 
-  @override
+    @override
   void initState() {
     super.initState();
-    _getProjectsByCid();
+    showContent();
+    _getWxArticles();
     _scrollController.addListener((){
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         print('滑动到了最底部');
-        _moreProjectsByCid();
+        _moreWxArticles();
       }
     });
   }
@@ -143,24 +145,27 @@ class _ProjectListPageState extends State<ProjectListPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.projectTreeName),
-      ),
-      body: RefreshIndicator(
-        onRefresh: _getProjectsByCid,
-        child: ListView.separated(
-          itemBuilder: _buildProjectItem,
-          separatorBuilder: (BuildContext context, int index) {
-            return Container(
-              height: 0.5,
-              color: Colors.black26,
-            );
-          },
-          itemCount: _projects.length + 1,
-          controller: _scrollController,
-        ),
+  Widget buildAppBar() {
+    return AppBar(
+      title: Text(widget.chapterName),
+      elevation: 0,
+    );
+  }
+
+  @override
+  Widget buildContent(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: _getWxArticles,
+      child: ListView.separated(
+        itemBuilder: _buildWxArticleItem,
+        separatorBuilder: (BuildContext context, int index) {
+          return Container(
+            height: 0.5,
+            color: Colors.black26,
+          );
+        },
+        itemCount: _wxArticles.length + 1,
+        controller: _scrollController,
       ),
     );
   }

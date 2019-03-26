@@ -1,58 +1,60 @@
 import 'package:flutter/material.dart';
-
 import 'package:wan/api/api_service.dart';
-import 'package:wan/api/datas/article.dart';
-import 'package:wan/api/datas/articles.dart';
+import 'package:wan/api/datas/project.dart';
+import 'package:wan/api/datas/projects.dart';
 import 'package:wan/assets/images.dart';
+import 'package:wan/base/base_page.dart';
 import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
 
+/// 项目列表页面
+class ProjectListPage extends BasePage {
+  final String projectTreeName;
+  final int projectTreeId;
 
-/// 知识体系具体分支下的文章列表页面
-class SystemArticlesPage extends StatefulWidget {
-  final String title;
-  final int cid;
-
-  SystemArticlesPage({ this.title, this.cid });
+  ProjectListPage({ this.projectTreeName, this.projectTreeId });
 
   @override
-  _SystemArticlesPageState createState() => _SystemArticlesPageState();
+  _ProjectListPageState createState() => _ProjectListPageState();
+
+  @override
+  BasePageState<BasePage> getPageState()  => _ProjectListPageState();
 }
 
-class _SystemArticlesPageState extends State<SystemArticlesPage> {
+class _ProjectListPageState extends BasePageState<ProjectListPage> {
   /// 页码（文章）
   int _pageNum = 0;
-  /// 文章列表
-  List<Article> _articles = [];
+  /// 项目列表
+  List<Project> _projects = [];
 
   ScrollController _scrollController = ScrollController();
 
-  Future<void> _getArticlesByCid() async {
-    _pageNum = 0;
-    ApiService.getArticlesByCid(_pageNum, widget.cid).then((Articles articles) {
+  Future<void> _getProjectsByCid() async {
+    _pageNum = 1;
+    ApiService.getProjectsByCid(_pageNum, widget.projectTreeId).then((Projects projects) {
       setState(() {
-        _articles.clear();
-        _articles.addAll(articles.datas);
+        _projects.clear();
+        _projects.addAll(projects.datas);
       });
     });
   }
 
-  void _moreArticlesByCid() {
+  void _moreProjectsByCid() {
     _pageNum++;
-    ApiService.getArticlesByCid(_pageNum, widget.cid).then((Articles articles) {
+    ApiService.getProjectsByCid(_pageNum, widget.projectTreeId).then((Projects projects) {
       setState(() {
-        _articles.addAll(articles.datas);
+        _projects.addAll(projects.datas);
       });
     });
   }
 
-  Widget _buildArticleItem(BuildContext context, int index) {
+  Widget _buildProjectItem(BuildContext context, int index) {
     // 文章
-    if (index < _articles.length) {
-      var article =_articles[index];
+    if (index < _projects.length) {
+      var project =_projects[index];
       return InkWell(
         onTap: () {
-          WRouter.gotoWebPage(context, article.title, article.link);
+          WRouter.gotoWebPage(context, project.title, project.link);
         },
         child: Column(
           children: <Widget>[
@@ -67,13 +69,13 @@ class _SystemArticlesPageState extends State<SystemArticlesPage> {
                   ),
                   Text('  '),
                   Text(
-                    article.author,
+                    project.author,
                     style:TextStyle(fontSize: 14),
                     textAlign: TextAlign.start,
                   ),
                   Expanded(
                     child: Text(
-                      TimelineUtil.format(article.publishTime),
+                      TimelineUtil.format(project.publishTime),
                       style: TextStyle(fontSize: 14),
                       textAlign: TextAlign.right,
                     ),
@@ -87,7 +89,7 @@ class _SystemArticlesPageState extends State<SystemArticlesPage> {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                        article.title,
+                        project.title,
                         maxLines: 2,
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.left,
@@ -100,7 +102,7 @@ class _SystemArticlesPageState extends State<SystemArticlesPage> {
               padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
               child: Row(
                 children: <Widget>[
-                  Text(article.superChapterName,
+                  Text(project.superChapterName,
                     style: TextStyle(fontSize: 14),
                     textAlign: TextAlign.left,
                   ),
@@ -127,11 +129,12 @@ class _SystemArticlesPageState extends State<SystemArticlesPage> {
   @override
   void initState() {
     super.initState();
-    _getArticlesByCid();
+    showContent();
+    _getProjectsByCid();
     _scrollController.addListener((){
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         print('滑动到了最底部');
-        _moreArticlesByCid();
+        _moreProjectsByCid();
       }
     });
   }
@@ -143,25 +146,28 @@ class _SystemArticlesPageState extends State<SystemArticlesPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: RefreshIndicator(
-        onRefresh: _getArticlesByCid,
+  Widget buildAppBar() {
+    return AppBar(
+      title: Text(widget.projectTreeName),
+      elevation: 0,
+    );
+  }
+
+  @override
+  Widget buildContent(BuildContext context) {
+    return RefreshIndicator(
+        onRefresh: _getProjectsByCid,
         child: ListView.separated(
-          itemBuilder: _buildArticleItem,
+          itemBuilder: _buildProjectItem,
           separatorBuilder: (BuildContext context, int index) {
             return Container(
               height: 0.5,
               color: Colors.black26,
             );
           },
-          itemCount: _articles.length + 1,
+          itemCount: _projects.length + 1,
           controller: _scrollController,
         ),
-      ),
-    );
+      );
   }
 }
