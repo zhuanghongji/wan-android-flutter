@@ -41,20 +41,20 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> with 
           title: Text('首页')
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.streetview),
-          title: Text('体系')
+          icon: Icon(Icons.next_week),
+          title: Text('待办')
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.book),
-          title: Text('公众号')
+          icon: Icon(Icons.streetview),
+          title: Text('体系')
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.navigation),
           title: Text('导航')
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.apps),
-          title: Text('项目')
+          icon: Icon(Icons.explore),
+          title: Text('发现')
         ),
       ],
     );

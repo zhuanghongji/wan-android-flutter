@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:wan/pages/api/api_page.dart';
+import 'package:wan/pages/main/explore/explore_page.dart';
 import 'package:wan/pages/main/home/home_page.dart';
 import 'package:wan/pages/main/main_bottom_bar.dart';
 import 'package:wan/pages/main/main_drawer.dart';
 import 'package:wan/pages/main/navi/navi_page.dart';
 import 'package:wan/pages/main/project/project_tree_page.dart';
 import 'package:wan/pages/main/system/system_tree_page.dart';
+import 'package:wan/pages/main/todo/todo_page.dart';
 import 'package:wan/pages/main/wx_chapter/wx_chapter_page.dart';
 import 'package:wan/pages/search/search_page.dart';
 
@@ -23,7 +25,7 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
 
   var _index = 0;
   var _pages = <Widget>[];
-  var _titles = ['首页', '知识体系', '公众号', '导航', '项目'];
+  var _titles = ['首页', '待办', '体系', '导航', '发现'];
   var _showDrawer = true;
 
   Widget _getAppBarWidget(BuildContext context) {
@@ -85,10 +87,10 @@ class _MainPageState extends State<MainPage> with AutomaticKeepAliveClientMixin 
     super.initState();
     _pages = [
       HomePage(),
+      TodoPage(),
       SystemTreePage(),
-      WxChapterPage(),
       NaviPage(),
-      ProjectTreePage(),
+      ExplorePage(),
     ];
   }
 
