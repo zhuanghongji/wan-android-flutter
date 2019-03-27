@@ -12,7 +12,7 @@ WAN ANDROID 站点汇总了 Android 相关的项目、知识体系、公众号�
 * 在站内你可以及时看到业界最新的博客文章、发现最新的项目
 * 同时你也可以利用站点提供的一些工具（比如正则、二维码生成..）来提高开发效率。
 
-本仓库是一个基于 WAN ANDROID 开放 API 开发的 React Native 项目，相关的项目还有：
+本仓库是一个基于 WAN ANDROID 开放 API 开发的 Flutter 项目，相关的项目还有：
 
 * [wan-android-kt](https://github.com/zhuanghongji/wan-android-kt)
 * [wan-android-rn](https://github.com/zhuanghongji/wan-android-rn)
@@ -30,12 +30,51 @@ WAN ANDROID 站点汇总了 Android 相关的项目、知识体系、公众号�
 ├ android
 ├ ios          
 ├ lib         
-   ├ api            
+   ├ api       
+      ├ datas                    接口返回结果实体类的存放目录（一个类一个文件）
+         ├ article.dart
+         ├ articles.dart
+         └ ...
+      ├ api_constant.dart        接口相关常量
+      ├ api_service.dart         封装了 WAN ANDROID OPEN API 的所有请求
+      └ base_resp.dart           包装接口返回结果的泛型类文件
+   ├ assets                      资源文件和对应类文件的存放目录
+      ├ images                   所有图片文件的存放目录
+      ├ images.dart              通过常量来索引所有图片资源
+      └ ...
+   ├ base
+      ├ base_page.dart           所有页面部件的基类文件
+      └ ...
    ├ http
-   ├ images
-   ├ pages
-   ├ utils
-   └ widget
+      ├ interceptors             自定义网络拦截器的存放目录
+      └ http_managers.dart       在 Dio 上封装一层的网络请求类 
+   ├ common                      通用类文件存放目录
+   ├ manager                     管理类文件存放目录
+      ├ sp_manager.dart          封装了 SharedPreferenced 相关 API 的类
+      └ ...
+   ├ pages                       所有页面类文件的存放目录（一个页面一个目录，目录下对应一个 xxx_page.dart 文件）
+      ├ about                    关于页面
+         ├ ...                   （当前页面独立出来的部件，仅该页面使用）
+         └ about_page.dart  
+      ├ board                    白板页面（非业务相关，仅用于快速编写和预览组件）
+         └ board_page.dart 
+      ├ main                     主页面目录
+         ├ home                  首页
+         ├ todo                  待办事项
+         ├ system                体系
+         ├ navi                  导航
+         ├ explore               发现
+         ├ main_bottom_bar.dart  主页面底部栏
+         ├ main_drawer.dart      主页面侧滑菜单
+         └ main_page.dart        主页面
+      ├ template                 页面模板（你可以复制该目录再重命名，以快速开发页面）
+         └ template_page.dart    
+      └ ...
+   ├ router
+      └ w_router.dart            路由管理类（处理当前应用所有页面的跳转）
+   ├ utils                       工具类文件的存放目录
+   ├ widget                      通用部件的存放目录（如果仅是某一个页面使用的话，请放在该页面的目录下）
+   └ ...
 ├ screenshots      
 ├ test         
 └ pubspec.yaml         
@@ -44,18 +83,20 @@ WAN ANDROID 站点汇总了 Android 相关的项目、知识体系、公众号�
 
 ## 第三方依赖
 
-* [cupertino_icons](https://pub.dartlang.org/packages/cupertino_icons)
-* [lutter_swiper](https://pub.dartlang.org/packages/flutter_swiper)
-* [flutter_webview_plugin](https://pub.dartlang.org/packages/flutter_webview_plugin)
 * [dio](https://pub.dartlang.org/packages/dio)
-* [shared_preferences](https://pub.dartlang.org/packages/shared_preferences)
-* [fluttertoast](https://pub.dartlang.org/packages/fluttertoast)
 * [event_bus](https://pub.dartlang.org/packages/event_bus)
+* [shared_preferences](https://pub.dartlang.org/packages/shared_preferences)
+* [lutter_swiper](https://pub.dartlang.org/packages/flutter_swiper)
 * [flutter_slidable](https://pub.dartlang.org/packages/flutter_slidable)
+* [flutter_webview_plugin](https://pub.dartlang.org/packages/flutter_webview_plugin)
+* ...
 
 
-## 待办
 
+## 待完成
+
+* [ ] 支持主题切换
+* [ ] 支持多用户使用（切换账号）
 * [ ] ...
 
 
