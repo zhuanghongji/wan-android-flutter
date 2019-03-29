@@ -1,6 +1,6 @@
 import 'package:wan/api/base_resp.dart';
 import 'package:wan/api/datas/Friend.dart';
-import 'package:wan/api/datas/article.dart';
+
 import 'package:wan/api/datas/articles.dart';
 import 'package:wan/api/datas/banner.dart';
 import 'package:wan/api/datas/collections.dart';
@@ -10,6 +10,7 @@ import 'package:wan/api/datas/navi.dart';
 import 'package:wan/api/datas/project_tree.dart';
 import 'package:wan/api/datas/projects.dart';
 import 'package:wan/api/datas/system_tree.dart';
+import 'package:wan/api/datas/todos.dart';
 import 'package:wan/api/datas/website_collection.dart';
 import 'package:wan/api/datas/wx_article_s.dart';
 import 'package:wan/api/datas/wx_chapter.dart';
@@ -306,13 +307,26 @@ class ApiService {
   /// - [type] 创建时传入的类型, 默认全部展示
   /// - [priority] 创建时传入的优先级；默认全部展示
   /// - [orderby] 1:完成日期顺序；2.完成日期逆序；3.创建日期顺序；4.创建日期逆序(默认)；
-  static Future<dynamic> getTodos(int pageNum, int status, int type, int priority, int orderby) async {
-    return post('/lg/todo/v2/list/$pageNum/json', null, {
-      'status': status,
-      'type': type,
-      'priority': priority,
-      'orderby': orderby,
-    });
+  static Future<Todos> getTodos(int pageNum, {
+    int status, 
+    int type, 
+    int priority, 
+    int orderby
+  }) async {
+    Map<String, dynamic> params = Map();
+    if (status != null) {
+      params['status'] = status;
+    }
+    if (type != null) {
+      params['type'] = type;
+    }
+    if (priority != null) {
+      params['priority'] = priority;
+    }
+    if (orderby != null) {
+      params['orderby'] = orderby;
+    }
+    return post('/lg/todo/v2/list/$pageNum/json', (res) => Todos.fromJson(res), params);
   }
 
   /// 获取公众号列表

@@ -1,6 +1,6 @@
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
-import 'package:wan/http/interceptors/CookieInterceptor.dart';
+
 
 class HttpManager {
 
@@ -22,7 +22,7 @@ class HttpManager {
     }
     // _client.interceptors.add(CookieInterceptor());
     _client.interceptors.add(CookieManager(CookieJar()));
-    _client.interceptors.add(LogInterceptor());
+    _client.interceptors.add(LogInterceptor(requestBody: true));
   }
   
   /// GET 请求

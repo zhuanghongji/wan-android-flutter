@@ -31,14 +31,14 @@ class _LoginPageState extends BasePageState<LoginPage> {
     }
     print('开始登录');
     ApiService.login(_username, _password).then((LoginInfo loginInfo) {
-
+      WRouter.gotoMainPage(context);
     });
   }
 
   void _onVisitorLogin() {
     String waf = 'wan-android-flutter';
     ApiService.login(waf, waf).then((LoginInfo loginInfo) {
-      print(loginInfo);
+      WRouter.gotoMainPage(context);
     });
   }
 

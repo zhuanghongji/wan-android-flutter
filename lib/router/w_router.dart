@@ -5,6 +5,7 @@ import 'package:wan/pages/board/white_board_page.dart';
 import 'package:wan/pages/collections/my_collections_page.dart';
 import 'package:wan/pages/friend/friend_website_page.dart';
 import 'package:wan/pages/login/login_page.dart';
+import 'package:wan/pages/main/main_page.dart';
 import 'package:wan/pages/project_list/project_list_page.dart';
 import 'package:wan/pages/register/register_page.dart';
 import 'package:wan/pages/search/search_page.dart';
@@ -48,6 +49,13 @@ class WRouter {
   static void gotoRegisterPage(BuildContext context) async {
     await Navigator.of(context).push(MaterialPageRoute(builder: (context){
       return RegisterPage();
+    }));
+  }
+
+  /// 跳转到：主页面
+  static void gotoMainPage(BuildContext context) async {
+    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
+      return MainPage();
     }));
   }
 

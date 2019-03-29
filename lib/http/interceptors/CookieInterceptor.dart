@@ -1,8 +1,8 @@
 
 import 'package:dio/dio.dart';
-import 'package:wan/manager/user_manager.dart';
 
-const _TAG = 'CookieInterceptor:';
+
+// const _TAG = 'CookieInterceptor:';
 
 /// 自定义拦截器：处理 WAN ANDROID OPEN API 的 Cookie
 class CookieInterceptor extends Interceptor {

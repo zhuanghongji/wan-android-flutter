@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/navi.dart';
 import 'package:wan/api/datas/navi_article.dart';
-import 'package:wan/pages/web/web_page.dart';
 import 'package:wan/router/w_router.dart';
 
 /// 导航页面
