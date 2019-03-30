@@ -6,7 +6,7 @@ class CollectionView extends StatefulWidget {
   final initialCollected;
   final Function(bool) onChange;
 
-  CollectionView({ this.initialCollected, this.onChange });
+  CollectionView({ this.initialCollected, this.onChange});
 
   @override
   _CollectionViewState createState() => _CollectionViewState();
@@ -35,7 +35,8 @@ class _CollectionViewState extends State<CollectionView> {
         widget.onChange(newCollected);
       },
       child: Container(
-        child: Image.asset(imagePath, width: 24, height: 24),
+        padding: EdgeInsets.fromLTRB(8, 8, 0, 8),
+        child: Image.asset(imagePath, width: 18, height: 18),
       ),
     );
   }

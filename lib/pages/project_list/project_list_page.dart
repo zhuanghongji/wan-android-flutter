@@ -5,6 +5,7 @@ import 'package:wan/api/datas/projects.dart';
 import 'package:wan/assets/images.dart';
 import 'package:wan/base/base_page.dart';
 import 'package:wan/router/w_router.dart';
+import 'package:wan/style/text_style.dart';
 import 'package:wan/utils/time_line.dart';
 import 'package:wan/widget/collection.dart';
 import 'package:wan/widget/loading_item.dart';
@@ -97,6 +98,98 @@ class _ProjectListPageState extends BasePageState<ProjectListPage> {
     ApiService.uncollectOriginId(project.id);
   }
 
+  Widget _buildProjectItemTitle(Project project) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Image.asset(
+            ImageAsset.icMan,
+            width: 24,
+            height: 24,
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 12),
+            child: Text(
+              project.author,
+              style: TextStyles.author(),
+              textAlign: TextAlign.start,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              TimelineUtil.format(project.publishTime),
+              style: TextStyles.publishTime(),
+              textAlign: TextAlign.right,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProjectItemInfo(Project project) {
+    return Expanded(
+      child: Container(
+        alignment: Alignment.topLeft,
+        padding: EdgeInsets.fromLTRB(16, 8, 8, 8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            // 标题
+            Text(
+              project.title,
+              maxLines: 1,
+              style: TextStyles.title(),
+              textAlign: TextAlign.left,
+              overflow: TextOverflow.ellipsis,
+            ),
+            // 描述
+            Container(
+              padding: EdgeInsets.only(top: 4),
+              child: Text(
+                project.desc,
+                maxLines: 3,
+                style: TextStyles.desc(),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            // 标签、所在章节、收藏按钮
+            Expanded(
+              child: Container(
+                alignment: Alignment.bottomLeft,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Tags(project.tags),
+                    Container(
+                      padding: EdgeInsets.only(left: 8),
+                      child: Text(project.superChapterName,
+                        style: TextStyles.superChapterName(),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(''),
+                    ),
+                    CollectionView(
+                      initialCollected: project.collect,
+                      onChange: (bool newCollected) {
+                        _onCollectedChange(project, newCollected);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      )
+    );
+  }
+
   Widget _buildProjectItem(BuildContext context, int index) {
     // 文章
     if (index < _projects.length) {
@@ -107,33 +200,11 @@ class _ProjectListPageState extends BasePageState<ProjectListPage> {
         },
         child: Column(
           children: <Widget>[
+            _buildProjectItemTitle(project),
             Container(
-              padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
-              child: Row(
-                children: <Widget>[
-                  Image.asset(
-                    ImageAsset.icMan,
-                    width: 16,
-                    height: 16,
-                  ),
-                  Text('  '),
-                  Text(
-                    project.author,
-                    style:TextStyle(fontSize: 14),
-                    textAlign: TextAlign.start,
-                  ),
-                  Expanded(
-                    child: Text(
-                      TimelineUtil.format(project.publishTime),
-                      style: TextStyle(fontSize: 14),
-                      textAlign: TextAlign.right,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+              height: 180,
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,47 +213,9 @@ class _ProjectListPageState extends BasePageState<ProjectListPage> {
                     project.envelopePic, 
                     fit: BoxFit.cover,
                     width: 80, 
-                    height: 160,
+                    height: 168,
                   ),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.topLeft,
-                      padding: EdgeInsets.fromLTRB(16, 8, 8, 8),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            project.title,
-                            maxLines: 2,
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.left,
-                          ),
-                          Text(
-                            project.desc,
-                            maxLines: 2,
-                            style: TextStyle(fontSize: 16),
-                            textAlign: TextAlign.left,
-                          ),
-                          Text(project.superChapterName,
-                            style: TextStyle(fontSize: 14, color: Colors.black),
-                            textAlign: TextAlign.left,
-                          ),
-                          Tags(project.tags),
-                        ],
-                      ),
-                    )
-                  ),
-                  Container(
-                    height: 156,
-                    alignment: Alignment.bottomRight,
-                    child: CollectionView(
-                        initialCollected: project.collect,
-                        onChange: (bool newCollected) {
-                          _onCollectedChange(project, newCollected);
-                        },
-                      ),
-                  ),
+                  _buildProjectItemInfo(project),
                 ],
               ),
             ),
