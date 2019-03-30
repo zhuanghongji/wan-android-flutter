@@ -81,6 +81,8 @@ flutter:
    - lib/assets/images/ic_delete.png
    - lib/assets/images/ic_eye_close.png
    - lib/assets/images/ic_eye_open.png
+   - lib/assets/images/ic_start_hollow.png
+   - lib/assets/images/ic_start_solid.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

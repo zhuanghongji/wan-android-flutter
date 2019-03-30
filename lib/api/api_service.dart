@@ -41,6 +41,9 @@ class ApiService {
   /// 在 HttpManager 上封装的 POST 请求，返回结果的 data 节点为 object
   static Future<T> post<T>(String path, Function buildFun, [Map<String, dynamic> params]) async {
     Map<String, dynamic> jsonRes = await HttpManager().post(path, params);
+    if (buildFun == null) {
+      return null;
+    }
     BaseResp<T> resp = BaseResp.fromJson(jsonRes, buildFun);
     return resp.data;
   }
@@ -156,11 +159,11 @@ class ApiService {
 
   /// 收藏站内文章
   /// 
-  /// - [articleId] 文章id，拼接在链接中。
+  /// - [id] 文章id，拼接在链接中。
   /// 
   /// 意链接中的数字，为需要收藏的id.
-  static Future<dynamic> collectArticle(int articleId) async {
-    return post('/lg/collect/$articleId/json', null, {});
+  static Future<dynamic> collectOriginId(int id) async {
+    return post('/lg/collect/$id/json', null, {});
   }
 
   /// 收藏站外文章
@@ -183,7 +186,7 @@ class ApiService {
   /// 注意，取消收藏一共有两个地方可以触发：
   /// - 文章列表 [cancelArticleCollection]
   /// - 我的收藏页面（该页面包含自己录入的内容）[uncollect]
-  static Future<dynamic> cancelArticleCollection(int articleId) async {
+  static Future<dynamic> uncollectOriginId(int articleId) async {
     return post('/lg/uncollect_originId/$articleId/json', null, {});
   }
 

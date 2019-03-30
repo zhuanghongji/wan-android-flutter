@@ -37,4 +37,6 @@ class ImageAsset {
   static const icDelete = '$dir/ic_delete.png';
   static const icEyeClose = '$dir/ic_eye_close.png';
   static const icEyeOpen = '$dir/ic_eye_open.png';
+  static const icStartHollow = '$dir/ic_start_hollow.png';
+  static const icStartSolid = '$dir/ic_start_solid.png';
 }

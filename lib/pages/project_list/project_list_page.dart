@@ -6,7 +6,9 @@ import 'package:wan/assets/images.dart';
 import 'package:wan/base/base_page.dart';
 import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
+import 'package:wan/widget/collection.dart';
 import 'package:wan/widget/loading_item.dart';
+import 'package:wan/widget/tags.dart';
 
 /// 项目列表页面
 class ProjectListPage extends BasePage {
@@ -83,6 +85,18 @@ class _ProjectListPageState extends BasePageState<ProjectListPage> {
     });
   }
 
+  /// 收藏状态发生变化
+  /// 
+  /// - [project] 对应项目
+  /// - 如果 [newCollected] 为 `true` 则表示收藏该项目；否则，取消收藏该项目
+  void _onCollectedChange(Project project, bool newCollected) {
+    if (newCollected) {
+      ApiService.collectOriginId(project.id);
+      return;
+    }
+    ApiService.uncollectOriginId(project.id);
+  }
+
   Widget _buildProjectItem(BuildContext context, int index) {
     // 文章
     if (index < _projects.length) {
@@ -119,31 +133,59 @@ class _ProjectListPageState extends BasePageState<ProjectListPage> {
               ),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
+              padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Image.network(
+                    project.envelopePic, 
+                    fit: BoxFit.cover,
+                    width: 80, 
+                    height: 160,
+                  ),
                   Expanded(
-                    child: Text(
-                        project.title,
-                        maxLines: 2,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.left,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
-              child: Row(
-                children: <Widget>[
-                  Text(project.superChapterName,
-                    style: TextStyle(fontSize: 14),
-                    textAlign: TextAlign.left,
+                    child: Container(
+                      alignment: Alignment.topLeft,
+                      padding: EdgeInsets.fromLTRB(16, 8, 8, 8),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            project.title,
+                            maxLines: 2,
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.left,
+                          ),
+                          Text(
+                            project.desc,
+                            maxLines: 2,
+                            style: TextStyle(fontSize: 16),
+                            textAlign: TextAlign.left,
+                          ),
+                          Text(project.superChapterName,
+                            style: TextStyle(fontSize: 14, color: Colors.black),
+                            textAlign: TextAlign.left,
+                          ),
+                          Tags(project.tags),
+                        ],
+                      ),
+                    )
+                  ),
+                  Container(
+                    height: 156,
+                    alignment: Alignment.bottomRight,
+                    child: CollectionView(
+                        initialCollected: project.collect,
+                        onChange: (bool newCollected) {
+                          _onCollectedChange(project, newCollected);
+                        },
+                      ),
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       );
