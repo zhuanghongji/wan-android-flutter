@@ -7,6 +7,7 @@ import 'package:wan/assets/images.dart';
 import 'package:wan/base/base_page.dart';
 import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
+import 'package:wan/widget/loading_item.dart';
 
 
 /// 搜索页面
@@ -35,25 +36,72 @@ class _SearchPageState extends BasePageState<SearchPage> {
   String _searchKey = '';
   /// FocusNode
   FocusNode _focusNode = FocusNode();
+  /// 文章列表的查询状态
+  LoadingType _loadingType = LoadingType.loading;
   /// 搜索输入框控制器
   TextEditingController _textEditingController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    showContent();
+    _textEditingController = TextEditingController(
+      text: widget.defaultSearchKey,
+    );
+
+    _scrollController.addListener((){
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        print('滑动到了最底部');
+        _moreArticles();
+      }
+    });
+
+    ApiService.getHotkeys().then((List<Hotkey> hotkeys) {
+      setState(() {
+        _hotkeys.clear();
+        _hotkeys.addAll(hotkeys);
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
+
+  _setupLoadingType(LoadingType type) {
+    setState(() {
+      _loadingType = type;
+    });
+  }
+
   void _queryArticles(String input) {
+    _setupLoadingType(LoadingType.loading);
     _pageNum = 0;
     ApiService.queryArticles(_pageNum, input).then((Articles articles) {
       setState(() {
         _articles.clear();
         _articles.addAll(articles.datas);
+        var allLoaded = _articles.length >= articles.total;
+        _setupLoadingType(allLoaded ? LoadingType.allLoaded : LoadingType.normal);
       });
     });
   }
 
   void _moreArticles() {
-    _pageNum = 0;
+    if (_loadingType == LoadingType.loading) {
+      print('正在加载');
+      return;
+    }
+    _setupLoadingType(LoadingType.loading);
+    _pageNum++;
     ApiService.queryArticles(_pageNum, _searchKey).then((Articles articles) {
       setState(() {
         _articles.clear();
         _articles.addAll(articles.datas);
+        var allLoaded = _articles.length >= articles.total;
+        _setupLoadingType(allLoaded ? LoadingType.allLoaded : LoadingType.normal);
       });
     });
   }
@@ -203,44 +251,7 @@ class _SearchPageState extends BasePageState<SearchPage> {
     }
 
     // 加载更多
-    return Container(
-      padding: EdgeInsets.all(16),
-      alignment: Alignment.center,
-      child: SizedBox(
-        width: 24,
-        height: 24,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    showContent();
-    _textEditingController = TextEditingController(
-      text: widget.defaultSearchKey,
-    );
-
-    _scrollController.addListener((){
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        print('滑动到了最底部');
-        _moreArticles();
-      }
-    });
-
-    ApiService.getHotkeys().then((List<Hotkey> hotkeys) {
-      setState(() {
-        _hotkeys.clear();
-        _hotkeys.addAll(hotkeys);
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
+    return LoadingItem(_loadingType);
   }
   
   @override

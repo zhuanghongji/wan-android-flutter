@@ -1,55 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:wan/base/base_page.dart';
 
 
 /// 通用 Web 页面
-class WebPage extends StatefulWidget {
-
+class WebPage extends BasePage {
   final String title;
   final String url;
 
   WebPage({this.title, this.url});
 
   @override
-  _WebPageState createState() => _WebPageState();
+  BasePageState<BasePage> getPageState() => _WebPageState();
 }
 
-class _WebPageState extends State<WebPage> {
-  bool isLoading = false;
-
-  final webViewPlugin = FlutterWebviewPlugin();
+class _WebPageState extends BasePageState<WebPage> {
+  final _webViewPlugin = FlutterWebviewPlugin();
 
   @override
   void initState() {
     super.initState();
-    webViewPlugin.onStateChanged.listen((state){
+    _webViewPlugin.onStateChanged.listen((state){
       if (state.type == WebViewState.finishLoad) {
-        setState(() {
-          isLoading = false;
-        });
+        showContent();
       } else if (state.type == WebViewState.startLoad) {
-        setState(() {
-          isLoading = true;
-        });
+        showLoading();
       }
     });
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildAppBar() {
+    return AppBar(
+      elevation: 0.4,
+      title: Text(widget.title),
+    );
+  }
+
+  @override
+  Widget buildContent(BuildContext context) {
     return WebviewScaffold(
       url: widget.url,
-      appBar: AppBar(
-        elevation: 0.4,
-        title: Text(widget.title),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1.0),
-          child: isLoading ? LinearProgressIndicator() : Divider(
-            height: 1.0,
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
-      ),
       withZoom: false,
       withLocalStorage: true,
       withJavascript: true,

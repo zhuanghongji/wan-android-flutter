@@ -14,7 +14,7 @@ class _TemplatePageState extends BasePageState<TemplatePage> {
   @override
   void initState() {
     super.initState();
-    showContent();
+    // showContent();
   }
 
   @override

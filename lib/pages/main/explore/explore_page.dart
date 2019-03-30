@@ -6,7 +6,7 @@ import 'package:wan/api/datas/wx_chapter.dart';
 import 'package:wan/router/w_router.dart';
 
 
-/// 项目树页面
+/// 发现页面（项目分类、微信公众号列表）
 class ExplorePage extends StatefulWidget {
   @override
   _ExplorePageState createState() => _ExplorePageState();
