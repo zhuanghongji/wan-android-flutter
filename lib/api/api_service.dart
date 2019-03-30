@@ -195,8 +195,12 @@ class ApiService {
   /// 注意，取消收藏一共有两个地方可以触发：
   /// - 文章列表 [cancelArticleCollection]
   /// - 我的收藏页面（该页面包含自己录入的内容）[uncollect]
-  static Future<dynamic> uncollect(int articleId) async {
-    return post('/lg/uncollect/$articleId/json', null, {});
+  static Future<dynamic> uncollect(int id, int originId) async {
+    Map<String, dynamic> params = Map();
+    if (originId != null) {
+      params['originId'] = originId;
+    }
+    return post('/lg/uncollect/$id/json', null, params);
   }
 
   /// 收藏网站列表
