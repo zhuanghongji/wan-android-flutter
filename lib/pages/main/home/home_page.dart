@@ -8,6 +8,7 @@ import 'package:wan/assets/images.dart';
 import 'package:wan/pages/main/main_drawer.dart';
 import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
+import 'package:wan/widget/article_item.dart';
 import 'package:wan/widget/custom_banner.dart';
 import 'package:wan/widget/loading_item.dart';
 
@@ -103,72 +104,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
         child: CustomBanner(_bannerItems, _onBannerItemTap),
       );
     }
-
     // 文章
     if (index < _articles.length + 1) {
       var article =_articles[index - 1];
-      return InkWell(
-        onTap: () {
-          WRouter.gotoWebPage(context, article.title, article.link);
-        },
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
-              child: Row(
-                children: <Widget>[
-                  Image.asset(
-                    ImageAsset.icMan,
-                    width: 16,
-                    height: 16,
-                  ),
-                  Text('  '),
-                  Text(
-                    article.author,
-                    style:TextStyle(fontSize: 14),
-                    textAlign: TextAlign.start,
-                  ),
-                  Expanded(
-                    child: Text(
-                      TimelineUtil.format(article.publishTime),
-                      style: TextStyle(fontSize: 14),
-                      textAlign: TextAlign.right,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                        article.title,
-                        maxLines: 2,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.left,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.fromLTRB(16, 8, 16, 16),
-              child: Row(
-                children: <Widget>[
-                  Text(article.superChapterName,
-                    style: TextStyle(fontSize: 14),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      );
+      return ArticleItem(article);
     }
-
+    // 加载提示项
     return LoadingItem(_loadingType);
   }
 

@@ -5,12 +5,12 @@ class TextStyles {
 
   /// 作者
   static author() => TextStyle (
-    fontSize: 18,
+    fontSize: 16,
   );
 
   /// 作者
   static publishTime() => TextStyle (
-    fontSize: 16,
+    fontSize: 15,
   );
 
   /// 作者
