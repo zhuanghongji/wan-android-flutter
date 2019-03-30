@@ -7,6 +7,7 @@ import 'package:wan/assets/images.dart';
 import 'package:wan/base/base_page.dart';
 import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
+import 'package:wan/widget/loading_item.dart';
 
 
 /// 知识体系具体分支下的文章列表页面
@@ -26,23 +27,57 @@ class _SystemArticlesPageState extends BasePageState<SystemArticlesPage> {
   /// 文章列表
   List<Article> _articles = [];
 
+  LoadingType _loadingType = LoadingType.loading;
   ScrollController _scrollController = ScrollController();
 
+  @override
+  void initState() {
+    super.initState();
+    showContent();
+    _getArticlesByCid();
+    _scrollController.addListener((){
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        print('滑动到了最底部');
+        _moreArticlesByCid();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
+
+  _setupLoadingType(LoadingType type) {
+    setState(() {
+      _loadingType = type;
+    });
+  }
+
+  /// 根据体系 id 来获取对应文章列表
   Future<void> _getArticlesByCid() async {
+    _setupLoadingType(LoadingType.loading);
     _pageNum = 0;
     ApiService.getArticlesByCid(_pageNum, widget.cid).then((Articles articles) {
       setState(() {
         _articles.clear();
         _articles.addAll(articles.datas);
+        var allLoaded = _articles.length >= articles.total;
+        _setupLoadingType(allLoaded ? LoadingType.allLoaded : LoadingType.normal);
       });
     });
   }
 
+  /// 根据体系 id 来获取更多文章列表
   void _moreArticlesByCid() {
+    _setupLoadingType(LoadingType.loading);
     _pageNum++;
     ApiService.getArticlesByCid(_pageNum, widget.cid).then((Articles articles) {
       setState(() {
         _articles.addAll(articles.datas);
+        var allLoaded = _articles.length >= articles.total;
+        _setupLoadingType(allLoaded ? LoadingType.allLoaded : LoadingType.normal);
       });
     });
   }
@@ -113,35 +148,7 @@ class _SystemArticlesPageState extends BasePageState<SystemArticlesPage> {
       );
     }
 
-    // 加载更多
-    return Container(
-      padding: EdgeInsets.all(16),
-      alignment: Alignment.center,
-      child: SizedBox(
-        width: 24,
-        height: 24,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    showContent();
-    _getArticlesByCid();
-    _scrollController.addListener((){
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        print('滑动到了最底部');
-        _moreArticlesByCid();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
+    return LoadingItem(_loadingType);
   }
 
   @override

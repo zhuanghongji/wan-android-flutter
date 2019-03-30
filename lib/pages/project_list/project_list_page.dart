@@ -6,6 +6,7 @@ import 'package:wan/assets/images.dart';
 import 'package:wan/base/base_page.dart';
 import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
+import 'package:wan/widget/loading_item.dart';
 
 /// 项目列表页面
 class ProjectListPage extends BasePage {
@@ -27,23 +28,57 @@ class _ProjectListPageState extends BasePageState<ProjectListPage> {
   /// 项目列表
   List<Project> _projects = [];
 
+  LoadingType _loadingType = LoadingType.loading;
   ScrollController _scrollController = ScrollController();
 
+  @override
+  void initState() {
+    super.initState();
+    showContent();
+    _getProjectsByCid();
+    _scrollController.addListener((){
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        print('滑动到了最底部');
+        _moreProjectsByCid();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
+
+   _setupLoadingType(LoadingType type) {
+    setState(() {
+      _loadingType = type;
+    });
+  }
+
+  /// 根据项目分类 id 来获取项目列表
   Future<void> _getProjectsByCid() async {
+    _setupLoadingType(LoadingType.loading);
     _pageNum = 1;
     ApiService.getProjectsByCid(_pageNum, widget.projectTreeId).then((Projects projects) {
       setState(() {
         _projects.clear();
         _projects.addAll(projects.datas);
+        var allLoaded = _projects.length >= projects.total;
+        _setupLoadingType(allLoaded ? LoadingType.allLoaded : LoadingType.normal);
       });
     });
   }
 
+  /// 根据项目分类 id 来获取项目列表
   void _moreProjectsByCid() {
+    _setupLoadingType(LoadingType.loading);
     _pageNum++;
     ApiService.getProjectsByCid(_pageNum, widget.projectTreeId).then((Projects projects) {
       setState(() {
         _projects.addAll(projects.datas);
+        var allLoaded = _projects.length >= projects.total;
+        _setupLoadingType(allLoaded ? LoadingType.allLoaded : LoadingType.normal);
       });
     });
   }
@@ -114,35 +149,7 @@ class _ProjectListPageState extends BasePageState<ProjectListPage> {
       );
     }
 
-    // 加载更多
-    return Container(
-      padding: EdgeInsets.all(16),
-      alignment: Alignment.center,
-      child: SizedBox(
-        width: 24,
-        height: 24,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    showContent();
-    _getProjectsByCid();
-    _scrollController.addListener((){
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        print('滑动到了最底部');
-        _moreProjectsByCid();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
+    return LoadingItem(_loadingType);
   }
 
   @override

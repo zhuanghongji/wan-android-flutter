@@ -9,8 +9,9 @@ import 'package:wan/pages/main/main_drawer.dart';
 import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
 import 'package:wan/widget/custom_banner.dart';
+import 'package:wan/widget/loading_item.dart';
 
-
+/// 首页
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -22,10 +23,36 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
   /// 文章列表
   List<Article> _articles = [];
 
+  LoadingType _loadingType = LoadingType.loading;
   ScrollController _scrollController = ScrollController();
 
   /// 页码（文章）
   int _pageNum = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _getBannerItems();
+    _getArticles();
+    _scrollController.addListener((){
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        print('滑动到了最底部');
+        _getMoreArticles();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
+
+  _setupLoadingType(LoadingType type) {
+    setState(() {
+      _loadingType = type;
+    });
+  }
 
   /// 获取轮播图数据 
   void _getBannerItems() {
@@ -38,20 +65,26 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
 
   /// 获取文章
   Future<void> _getArticles() async {
+    _setupLoadingType(LoadingType.loading);
     _pageNum = 0;
     ApiService.getArticles(_pageNum).then((Articles articles){
       setState(() {
         _articles.addAll(articles.datas);
+        var allLoaded = _articles.length >= articles.total;
+        _setupLoadingType(allLoaded ? LoadingType.allLoaded : LoadingType.normal);
       });
     });
   }
 
   /// 获取更多文章 
   void _getMoreArticles() {
+    _setupLoadingType(LoadingType.loading);
     _pageNum++;
     ApiService.getArticles(_pageNum).then((Articles articles){
       setState(() {
         _articles.addAll(articles.datas);  
+        var allLoaded = _articles.length >= articles.total;
+        _setupLoadingType(allLoaded ? LoadingType.allLoaded : LoadingType.normal);
       });
     });
   }
@@ -136,35 +169,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
       );
     }
 
-    // 加载更多
-    return Container(
-      padding: EdgeInsets.all(16),
-      alignment: Alignment.center,
-      child: SizedBox(
-        width: 24,
-        height: 24,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getBannerItems();
-    _getArticles();
-    _scrollController.addListener((){
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        print('滑动到了最底部');
-        _getMoreArticles();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
+    return LoadingItem(_loadingType);
   }
 
   @override

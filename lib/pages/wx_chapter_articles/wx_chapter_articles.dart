@@ -7,6 +7,7 @@ import 'package:wan/assets/images.dart';
 import 'package:wan/base/base_page.dart';
 import 'package:wan/router/w_router.dart';
 import 'package:wan/utils/time_line.dart';
+import 'package:wan/widget/loading_item.dart';
 
 
 /// 微信公众号对应的文章列表页面
@@ -26,9 +27,37 @@ class _WxChapterArticlesPageState extends BasePageState<WxChapterArticlesPage> {
   /// 文章列表
   List<WxArticle> _wxArticles = [];
 
+  LoadingType _loadingType = LoadingType.loading;
   ScrollController _scrollController = ScrollController();
 
+  @override
+  void initState() {
+    super.initState();
+    showContent();
+    _getWxArticles();
+    _scrollController.addListener((){
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        print('滑动到了最底部');
+        _moreWxArticles();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
+
+  _setupLoadingType(LoadingType type) {
+    setState(() {
+      _loadingType = type;
+    });
+  }
+
+  /// 获取微信公众号对应的文章列表
   Future<void> _getWxArticles() async {
+    _setupLoadingType(LoadingType.loading);
     _pageNum = 0;
     ApiService.getWxArticles(widget.chapterId, _pageNum).then((WxArticles wxArticles) {
       setState(() {
@@ -38,7 +67,9 @@ class _WxChapterArticlesPageState extends BasePageState<WxChapterArticlesPage> {
     });
   }
 
+  /// 获取更多微信公众号对应的文章列表
   void _moreWxArticles() {
+    _setupLoadingType(LoadingType.loading);
     _pageNum++;
     ApiService.getWxArticles(widget.chapterId, _pageNum).then((WxArticles wxArticles) {
       setState(() {
@@ -113,35 +144,7 @@ class _WxChapterArticlesPageState extends BasePageState<WxChapterArticlesPage> {
       );
     }
 
-    // 加载更多
-    return Container(
-      padding: EdgeInsets.all(16),
-      alignment: Alignment.center,
-      child: SizedBox(
-        width: 24,
-        height: 24,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      ),
-    );
-  }
-
-    @override
-  void initState() {
-    super.initState();
-    showContent();
-    _getWxArticles();
-    _scrollController.addListener((){
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        print('滑动到了最底部');
-        _moreWxArticles();
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
+    return LoadingItem(_loadingType);
   }
 
   @override
