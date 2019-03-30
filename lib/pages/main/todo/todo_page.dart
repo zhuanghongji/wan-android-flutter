@@ -3,8 +3,7 @@ import 'package:wan/api/api_constant.dart';
 import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/todo.dart';
 import 'package:wan/api/datas/todos.dart';
-import 'package:wan/assets/images.dart';
-import 'package:wan/manager/user_manager.dart';
+import 'package:wan/widget/loading_item.dart';
 
 
 /// 待办事项页面
@@ -18,40 +17,11 @@ class _TodoPageState extends State<TodoPage> {
   List<Todo> _allFinishedTodos = [];
   ScrollController _scrollController = ScrollController();
 
+  LoadingType _loadingType =LoadingType.loading;
   int _statusFilter = TodoStatus.todo;
 
   /// 页码（待办事项）
   int _pageNum = 1;
-
-  /// 获取文章
-  Future<void> _getTodos(int _statusFilter) async {
-    _pageNum = 1;
-    ApiService.getTodos(_pageNum, status: _statusFilter).then((Todos todos){
-      setState(() {
-        if (_statusFilter == TodoStatus.todo) {
-          _allUnfinishTodos.clear();
-          _allUnfinishTodos.addAll(todos.datas);
-        } else {
-          _allFinishedTodos.clear();
-          _allFinishedTodos.addAll(todos.datas);
-        }
-      });
-    });
-  }
-
-  /// 获取更多文章 
-  void _getMoreTodos(int _statusFilter) {
-    _pageNum++;
-    ApiService.getTodos(_pageNum, status: _statusFilter).then((Todos todos){
-      setState(() {
-        if (_statusFilter == TodoStatus.todo) {
-          _allUnfinishTodos.addAll(todos.datas);
-        } else {
-          _allFinishedTodos.addAll(todos.datas);
-        } 
-      });
-    });
-  }
 
   @override
   void initState() {
@@ -71,10 +41,71 @@ class _TodoPageState extends State<TodoPage> {
     _scrollController.dispose();
   }
 
-  void _onTodoItemStatusChanged(bool isChecked) {
-
+  /// 提示正在加载
+  void setupLoading() {
+    setState(() {
+      _loadingType = LoadingType.loading;
+    });
   }
 
+  /// 提示上拉加载或已全部加载
+  /// 
+  /// - [allTodos] 是当前加载到了“未完成”或“已完成”的待办事项列表
+  /// - [total] 是服务器上全部“未完成”或“已完成”的待办事项数量
+  void setupLoadingType(List<Todo> allTodos, int total) {
+    setState(() {
+      if (allTodos.length < total) {
+        _loadingType = LoadingType.normal;
+      } else {
+        _loadingType = LoadingType.allLoaded;
+      }
+    });
+  }
+
+  /// 获取或刷新待办事项列表
+  /// 
+  /// - [status] “未完成”或“已完成”的状态，具体见 [TodoStatus]
+  Future<void> _getTodos(int status) async {
+    setupLoading();
+    _pageNum = 1;
+    ApiService.getTodos(_pageNum, status: status).then((Todos todos){
+      setState(() {
+        if (status == TodoStatus.todo) {
+          _allUnfinishTodos.clear();
+          _allUnfinishTodos.addAll(todos.datas);
+          setupLoadingType(_allUnfinishTodos, todos.total);
+        } else {
+          _allFinishedTodos.clear();
+          _allFinishedTodos.addAll(todos.datas);
+          setupLoadingType(_allFinishedTodos, todos.total);
+        }
+      });
+    });
+  }
+
+  /// 获取更多文章 
+  /// 
+  /// - [status] “未完成”或“已完成”的状态，具体见 [TodoStatus]
+  void _getMoreTodos(int status) {
+    setupLoading();
+    _pageNum++;
+    ApiService.getTodos(_pageNum, status: status).then((Todos todos){
+      setState(() {
+        if (status == TodoStatus.todo) {
+          _allUnfinishTodos.addAll(todos.datas);
+          setupLoadingType(_allUnfinishTodos, todos.total);
+        } else {
+          _allFinishedTodos.addAll(todos.datas);
+          setupLoadingType(_allFinishedTodos, todos.total);
+        } 
+      });
+    });
+  }
+
+  /// 点击待办事项，后需要跳转到待办事项详情页面
+  void _onTodoItemStatusChanged(bool isChecked) {
+    print('_onTodoItemStatusChanged');
+  }
 
   Widget _buildTodoItem(BuildContext context, int index, List<Todo> showTodos) {
     if (index == 0) {
@@ -91,17 +122,8 @@ class _TodoPageState extends State<TodoPage> {
         onChanged: _onTodoItemStatusChanged,
       );
     }
-
-    // 加载更多
-    return Container(
-      padding: EdgeInsets.all(16),
-      alignment: Alignment.center,
-      child: SizedBox(
-        width: 24,
-        height: 24,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      ),
-    );
+    
+    return LoadingItem(_loadingType);
   }
 
   Widget _buildTopBar() {

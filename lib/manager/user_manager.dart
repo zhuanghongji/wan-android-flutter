@@ -1,7 +1,7 @@
 
 import 'package:wan/manager/sp_manager.dart';
 
-const _TAG = 'UserManager:';
+// const _TAG = 'UserManager:';
 
 class UserManager {
 

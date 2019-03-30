@@ -20,9 +20,8 @@ class HttpManager {
       options.connectTimeout = 1000 * 5;   // 5 秒
       _client = Dio(options);
     }
-    // _client.interceptors.add(CookieInterceptor());
     _client.interceptors.add(CookieManager(CookieJar()));
-    _client.interceptors.add(LogInterceptor(requestBody: true));
+    // _client.interceptors.add(LogInterceptor(requestBody: true));
   }
   
   /// GET 请求
@@ -36,7 +35,7 @@ class HttpManager {
     } else {
       response = await _client.get(path);
     }
-    // print('HttpManager: get, path = $path, params = $params, response = $response');
+    print('HttpManager: get, path = $path, params = $params, response = $response');
     return response.data;
   }
 
@@ -51,7 +50,7 @@ class HttpManager {
     } else {
       response = await _client.post(path);
     }
-    // print('HttpManager: post, path = $path, params = $params, response = $response');
+    print('HttpManager: post, path = $path, params = $params, response = $response');
     return response.data;
   }
 }
