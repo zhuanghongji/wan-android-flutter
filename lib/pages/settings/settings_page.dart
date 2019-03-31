@@ -24,7 +24,7 @@ class _SettingsPageState extends BasePageState<SettingsPage> {
     print('退出登录');
     ApiService.logout().then((dynamic _) {
       UserManager().clearLoginInfo();
-      WRouter.gotoLoginPage(context);
+      WRouter.pushAndRemoveUntilLoginPage(context);
     });
   }
 

@@ -45,6 +45,22 @@ class WRouter {
     }));
   }
 
+  /// 跳转到：登录页面
+  static void pushReplacementLoginPage(BuildContext context) async {
+    await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
+      return LoginPage();
+    }));
+  }
+
+  /// 跳转到：登录页面
+  static void pushAndRemoveUntilLoginPage(BuildContext context) async {
+    await Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context){
+      return LoginPage();
+    }), (Route<dynamic> router) {
+      return router == null;
+    });
+  }
+
   /// 跳转到：注册页面
   static void gotoRegisterPage(BuildContext context) async {
     await Navigator.of(context).push(MaterialPageRoute(builder: (context){
@@ -55,6 +71,13 @@ class WRouter {
   /// 跳转到：主页面
   static void gotoMainPage(BuildContext context) async {
     await Navigator.of(context).push(MaterialPageRoute(builder: (context){
+      return MainPage();
+    }));
+  }
+
+  /// 跳转到：主页面
+  static void pushReplacementMainPage(BuildContext context) async {
+    await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
       return MainPage();
     }));
   }

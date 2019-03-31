@@ -33,7 +33,7 @@ class _LoginPageState extends BasePageState<LoginPage> {
     print('开始登录');
     ApiService.login(_username, _password).then((LoginInfo info) {
       UserManager().saveLoginInfo(_username, _password, info.email);
-      WRouter.gotoMainPage(context);
+      WRouter.pushReplacementMainPage(context);
     });
   }
 
@@ -41,7 +41,7 @@ class _LoginPageState extends BasePageState<LoginPage> {
     String waf = 'wan-android-flutter';
     ApiService.login(waf, waf).then((LoginInfo info) {
       UserManager().saveLoginInfo(waf, waf, info.email);
-      WRouter.gotoMainPage(context);
+      WRouter.pushReplacementMainPage(context);
     });
   }
 

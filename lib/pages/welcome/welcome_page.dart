@@ -21,15 +21,15 @@ class _WelcomePageState extends BasePageState<WelcomePage> {
   void tryLogin() {
     if (_username == null || _password == null) {
       print('_username($_username) 或 _password($_password) 为空，跳转到登录页面');
-      WRouter.gotoLoginPage(context);
+      WRouter.pushReplacementLoginPage(context);
       return;
     }
     ApiService.login(_username, _password).then((LoginInfo info) {
       UserManager().saveLoginInfo(_username, _password, info.email);
-      WRouter.gotoMainPage(context);
+      WRouter.pushReplacementMainPage(context);
     }).catchError((e) {
       print('尝试登录异常，跳转到登录页面');
-      WRouter.gotoLoginPage(context);
+      WRouter.pushReplacementLoginPage(context);
     }); 
   }
 
@@ -47,7 +47,7 @@ class _WelcomePageState extends BasePageState<WelcomePage> {
       tryLogin();
     }).catchError((e) {
       print('获取账号或密码异常，跳转到登录页面');
-      WRouter.gotoLoginPage(context);
+      WRouter.pushReplacementLoginPage(context);
     });
   }
 
