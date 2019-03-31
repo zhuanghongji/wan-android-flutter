@@ -34,6 +34,9 @@ class WRouter {
       predicate);
   }
 
+  static Future<bool> maybePop<T extends Object>(BuildContext context, [T result]) {
+    return Navigator.maybePop<T>(context, result);
+  }
 
 
   // MARK: concrete methods.

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wan/assets/images.dart';
+import 'package:wan/manager/sp_manager.dart';
 import 'package:wan/manager/user_manager.dart';
 import 'package:wan/router/w_router.dart';
 
@@ -11,6 +12,20 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
+  /// 头像地址
+  String _avatarUrl;
+
+  @override
+  void initState() {
+    // 获取头像
+    SpManager.getString(SpConstant.avatarUrl).then((avatarUrl) {
+      setState(() {
+        print('头像地址 = $avatarUrl');
+        _avatarUrl = avatarUrl;
+      });
+    }); 
+  }
+
   Widget _buildDrawerAccountName() {
     var isLogin = UserManager().isLogin();
     return InkWell(
@@ -34,11 +49,17 @@ class _MainDrawerState extends State<MainDrawer> {
   }
 
   Widget _buildDrawerHeader() {
+    var avatar;
+    if (_avatarUrl != null && _avatarUrl.startsWith('http')) {
+      avatar = NetworkImage(_avatarUrl);
+    } else {
+      avatar = AssetImage(ImageAsset.icAvatar);
+    }
     return UserAccountsDrawerHeader(
       accountName: _buildDrawerAccountName(),
       accountEmail: _buildDrawerAccountEmail(),
       currentAccountPicture: CircleAvatar(
-        backgroundImage: AssetImage(ImageAsset.icAvatar),
+        backgroundImage: avatar,
         backgroundColor: Colors.transparent,
       ),
       decoration: BoxDecoration(
