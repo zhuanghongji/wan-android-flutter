@@ -24,7 +24,7 @@ class _NaviPageState extends State<NaviPage> {
   }
 
   void _onNaviArticlePressed(NaviArticle article) {
-    WRouter.gotoWebPage(context, article.title, article.link);
+    WRouter.pushWebPage(context, article.title, article.link);
   }
 
   /// 构建每一个 SystemTree

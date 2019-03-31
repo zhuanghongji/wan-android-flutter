@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
 
   void _onBannerItemTap(BannerItem item, int index) {
     print('_onBannerItemTap: item = $item, index = $index');
-    WRouter.gotoWebPage(context, item.title, item.url);
+    WRouter.pushWebPage(context, item.title, item.url);
   }
 
   Widget _buildArticleItem(BuildContext context, int index) {

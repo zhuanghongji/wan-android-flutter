@@ -88,7 +88,7 @@ class ArticleItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        WRouter.gotoWebPage(context, article.title, article.link);
+        WRouter.pushWebPage(context, article.title, article.link);
       },
       child: Column(
         children: <Widget>[

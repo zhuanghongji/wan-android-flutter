@@ -28,7 +28,7 @@ class _SystemTreePageState extends State<SystemTreePage> {
 
   void _onSystemBranchPressed(System branch) {
     print(branch);
-    WRouter.gotoSystemArticlesPage(context, branch.name, branch.id);
+    WRouter.pushSystemArticlesPage(context, branch.name, branch.id);
   }
 
   /// 构建每一个 SystemTree

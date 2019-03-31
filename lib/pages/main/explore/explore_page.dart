@@ -38,12 +38,12 @@ class _ExplorePageState extends State<ExplorePage> {
 
   void _onProjectTreeItemPressed(ProjectTree projectTree) {
     print(projectTree);
-    WRouter.gotoProjectListPage(context, projectTree.name, projectTree.id);
+    WRouter.pushProjectListPage(context, projectTree.name, projectTree.id);
   }
 
   void _onWxChapterItemPressed(WxChapter chapter) {
     print(chapter);
-    WRouter.gotoWxChapterArticlesPage(context, chapter.name, chapter.id);
+    WRouter.pushWxChapterArticlesPage(context, chapter.name, chapter.id);
   }
 
   Widget _buildTitle(String title) {

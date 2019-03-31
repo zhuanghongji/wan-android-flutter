@@ -17,130 +17,120 @@ import 'package:wan/pages/wx_chapter_articles/wx_chapter_articles.dart';
 
 class WRouter {
 
+  // MARK: wrap methods.
+
+  static Future<MaterialPageRoute> push(BuildContext context, Widget page) async {
+    return await Navigator.of(context).push(MaterialPageRoute(builder: (context) => page));
+  }
+
+  static Future<MaterialPageRoute> pushReplacement(BuildContext context, Widget page) async {
+    return await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => page));
+  }
+
+  static Future<MaterialPageRoute> pushAndRemoveUntil(BuildContext context, Widget page, 
+      bool Function(Route<dynamic>) predicate) async {
+    return await Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => page), 
+      predicate);
+  }
+
+
+
+  // MARK: concrete methods.
+
   /// 跳转到：白板页面
-  static void gotoWhiteBoardPage(BuildContext context) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return WhiteBoardPage();
-    }));
+  static Future<MaterialPageRoute> pushWhiteBoardPage(BuildContext context) async {
+    return await push(context, WhiteBoardPage());
   }
 
   /// 跳转到：搜索页面
-  static void gotoSearchPage(BuildContext context) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return SearchPage();
-    }));
+  static Future<MaterialPageRoute> pushSearchPage(BuildContext context) async {
+    return await push(context, SearchPage());
   }
 
   /// 跳转到：设置页面
-  static void gotoSettingsPage(BuildContext context) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return SettingsPage();
-    }));
+  static Future<MaterialPageRoute> pushSettingsPage(BuildContext context) async {
+    return await push(context, SettingsPage());
   }
 
   /// 跳转到：登录页面
-  static void gotoLoginPage(BuildContext context) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return LoginPage();
-    }));
+  static Future<MaterialPageRoute> pushLoginPage(BuildContext context) async {
+    return await push(context, LoginPage());
   }
 
   /// 跳转到：登录页面
-  static void pushReplacementLoginPage(BuildContext context) async {
-    await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
-      return LoginPage();
-    }));
+  static Future<MaterialPageRoute> pushReplacementLoginPage(BuildContext context) async {
+    return await pushReplacement(context, LoginPage());
   }
 
   /// 跳转到：登录页面
-  static void pushAndRemoveUntilLoginPage(BuildContext context) async {
-    await Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context){
-      return LoginPage();
-    }), (Route<dynamic> router) {
-      return router == null;
-    });
+  static Future<MaterialPageRoute> pushAndRemoveUntilLoginPage(BuildContext context) async {
+    return await pushAndRemoveUntil(context, LoginPage(), (router) => router == null);
   }
 
   /// 跳转到：注册页面
-  static void gotoRegisterPage(BuildContext context) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return RegisterPage();
-    }));
+  static Future<MaterialPageRoute> pushRegisterPage(BuildContext context) async {
+    return await push(context, RegisterPage());
   }
 
   /// 跳转到：主页面
-  static void gotoMainPage(BuildContext context) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return MainPage();
-    }));
+  static Future<MaterialPageRoute> pushMainPage(BuildContext context) async {
+    return await push(context, MainPage());
   }
 
   /// 跳转到：主页面
-  static void pushReplacementMainPage(BuildContext context) async {
-    await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context){
-      return MainPage();
-    }));
+  static Future<MaterialPageRoute> pushReplacementMainPage(BuildContext context) async {
+    return await pushReplacement(context, MainPage());
   }
 
   /// 跳转到：关于页面
-  static void gotoAboutPage(BuildContext context) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return AboutPage();
-    }));
+  static Future<MaterialPageRoute> pushAboutPage(BuildContext context) async {
+    return await push(context, AboutPage());
   }
 
   /// 跳转到：我的收藏页面
-  static void gotoMyCollectionsPage(BuildContext context) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return MyCollectionsPage();
-    }));
+  static Future<MaterialPageRoute> pushMyCollectionsPage(BuildContext context) async {
+    return await push(context, MyCollectionsPage());
   }
 
   /// 跳转到：模板页面
-  static void gotoTemplatePage(BuildContext context) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return TemplatePage();
-    }));
+  static Future<MaterialPageRoute> pushTemplatePage(BuildContext context) async {
+    return await push(context, TemplatePage());
   }
 
   /// 跳转到：常用网站页面
-  static void gotoFriendWebsitePage(BuildContext context) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return FriendWebsitePage();
-    }));
+  static Future<MaterialPageRoute> pushFriendWebsitePage(BuildContext context) async {
+    return await push(context, FriendWebsitePage());
   }
 
   /// 跳转到：通用网页页面
   /// 
   /// - 参数 [title] 是网页标题
   /// - 参数 [url] 是网页链接
-  static void gotoWebPage(BuildContext context, String title, String url) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return WebPage(title: title, url: url,);
-    }));
+  static Future<MaterialPageRoute> pushWebPage(BuildContext context, 
+      String title, String url) async {
+    return await push(context, WebPage(title: title, url: url));
   }
   
   /// 跳转到：体系文章列表页面
   /// 
   /// - 参数 [title] 是体系具体分支的 title
   /// - 参数 [cid] 是体系具体分支的 id
-  static void gotoSystemArticlesPage(BuildContext context, String title, int cid) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return SystemArticlesPage(title: title, cid: cid);
-    }));
+  static Future<MaterialPageRoute> pushSystemArticlesPage(BuildContext context, 
+      String title, int cid) async {
+    return await push(context, SystemArticlesPage(title: title, cid: cid));
   }
 
   /// 跳转到：微信公众号文章列表页面
-  static void gotoWxChapterArticlesPage(BuildContext context, String chapterName, int chapterId) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return WxChapterArticlesPage(chapterName: chapterName, chapterId: chapterId);
-    }));
+  static Future<MaterialPageRoute> pushWxChapterArticlesPage(BuildContext context, 
+      String chapterName, int chapterId) async {
+    return await push(context, 
+      WxChapterArticlesPage(chapterName: chapterName, chapterId: chapterId));
   }
 
   /// 跳转到：项目列表页面
-  static void gotoProjectListPage(BuildContext context, String projectTreeName, int projectTreeId) async {
-    await Navigator.of(context).push(MaterialPageRoute(builder: (context){
-      return ProjectListPage(projectTreeName: projectTreeName, projectTreeId: projectTreeId);
-    }));
+  static Future<MaterialPageRoute> pushProjectListPage(BuildContext context, 
+      String projectTreeName, int projectTreeId) async {
+    return await push(context, 
+      ProjectListPage(projectTreeName: projectTreeName, projectTreeId: projectTreeId));
   }
 }

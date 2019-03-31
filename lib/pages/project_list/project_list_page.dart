@@ -196,7 +196,7 @@ class _ProjectListPageState extends BasePageState<ProjectListPage> {
       var project =_projects[index];
       return InkWell(
         onTap: () {
-          WRouter.gotoWebPage(context, project.title, project.link);
+          WRouter.pushWebPage(context, project.title, project.link);
         },
         child: Column(
           children: <Widget>[

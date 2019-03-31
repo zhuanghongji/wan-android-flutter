@@ -172,7 +172,7 @@ class _LoginPageState extends BasePageState<LoginPage> {
             '注册',
             style: TextStyle(fontSize: 16),
           ),
-          onPressed: (){ WRouter.gotoRegisterPage(context); },
+          onPressed: (){ WRouter.pushRegisterPage(context); },
         ),
       ],
     );

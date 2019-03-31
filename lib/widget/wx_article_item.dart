@@ -89,7 +89,7 @@ class WxArticleItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        WRouter.gotoWebPage(context, wxArticle.title, wxArticle.link);
+        WRouter.pushWebPage(context, wxArticle.title, wxArticle.link);
       },
       child: Column(
         children: <Widget>[

@@ -75,7 +75,7 @@ class CollectionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        WRouter.gotoWebPage(context, collection.title, collection.link);
+        WRouter.pushWebPage(context, collection.title, collection.link);
       },
       child: Column(
         children: <Widget>[

@@ -32,7 +32,7 @@ class _FriendWebsitePageState extends BasePageState<FriendWebsitePage> {
 
   void _onFriendItemPressed(Friend friend) {
     print(friend);
-    WRouter.gotoWebPage(context, friend.name, friend.link);
+    WRouter.pushWebPage(context, friend.name, friend.link);
   }
 
   Widget _buildFriends(List<Friend> friends) {

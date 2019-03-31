@@ -21,7 +21,7 @@ class _MainDrawerState extends State<MainDrawer> {
           color: Colors.white,
         ),
       ),
-      onTap: isLogin ? (){ WRouter.gotoLoginPage(context); } : null,
+      onTap: isLogin ? (){ WRouter.pushLoginPage(context); } : null,
     );
   }
 
@@ -69,12 +69,12 @@ class _MainDrawerState extends State<MainDrawer> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           _buildDrawerHeader(),
-          _buildItem('我的收藏', ImageAsset.icIceCream, (){ WRouter.gotoMyCollectionsPage(context); }),
-          _buildItem('常用网站', ImageAsset.icPear, (){ WRouter.gotoFriendWebsitePage(context); }),
-          _buildItem('白板', ImageAsset.icMilk, (){ WRouter.gotoWhiteBoardPage(context); }),
-          _buildItem('模板', ImageAsset.icBread, (){ WRouter.gotoTemplatePage(context); }),
-          _buildItem('设置', ImageAsset.icHamburg, (){ WRouter.gotoSettingsPage(context); }),
-          _buildItem('关于', ImageAsset.icKiwi, (){ WRouter.gotoAboutPage(context); }),
+          _buildItem('我的收藏', ImageAsset.icIceCream, (){ WRouter.pushMyCollectionsPage(context); }),
+          _buildItem('常用网站', ImageAsset.icPear, (){ WRouter.pushFriendWebsitePage(context); }),
+          _buildItem('白板', ImageAsset.icMilk, (){ WRouter.pushWhiteBoardPage(context); }),
+          _buildItem('模板', ImageAsset.icBread, (){ WRouter.pushTemplatePage(context); }),
+          _buildItem('设置', ImageAsset.icHamburg, (){ WRouter.pushSettingsPage(context); }),
+          _buildItem('关于', ImageAsset.icKiwi, (){ WRouter.pushAboutPage(context); }),
         ],
       ),
     );
