@@ -9,6 +9,7 @@ import 'package:wan/pages/main/main_page.dart';
 import 'package:wan/pages/project_list/project_list_page.dart';
 import 'package:wan/pages/register/register_page.dart';
 import 'package:wan/pages/search/search_page.dart';
+import 'package:wan/pages/setting_avatar/SettingAvatarPage.dart';
 import 'package:wan/pages/settings/settings_page.dart';
 import 'package:wan/pages/system_articles/system_articles_page.dart';
 import 'package:wan/pages/template/template_page.dart';
@@ -132,5 +133,10 @@ class WRouter {
       String projectTreeName, int projectTreeId) async {
     return await push(context, 
       ProjectListPage(projectTreeName: projectTreeName, projectTreeId: projectTreeId));
+  }
+
+  /// 跳转到：设置头像地址页面
+  static Future<MaterialPageRoute> pushSettingAvatarPage(BuildContext context) async {
+    return await push(context, SettingAvatarPage());
   }
 }

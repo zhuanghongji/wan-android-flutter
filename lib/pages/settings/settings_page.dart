@@ -105,7 +105,9 @@ class _SettingsPageState extends BasePageState<SettingsPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          _buildItem('设置头像地址', '', (){}),
+          _buildItem('设置头像地址', '', (){
+            WRouter.pushSettingAvatarPage(context);
+          }),
           divider,
           _buildLogoutButton(),
         ],
