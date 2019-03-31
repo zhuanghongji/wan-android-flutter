@@ -5,6 +5,9 @@ class SpConstant {
 
   static const username = 'username';
   static const password = 'password';
+  static const email = 'email';
+
+  /// 暂时不用 sp 来存储 cookie
   static const cookies = 'cookies';
 }
 

@@ -7,6 +7,7 @@ class UserManager {
 
   String _username;
   String _password;
+  String _email;
 
   static final UserManager _singleton = UserManager._internal();
 
@@ -24,13 +25,19 @@ class UserManager {
     SpManager.getString(SpConstant.password).then((value) {
       _password = value;
     });
+
+    SpManager.getString(SpConstant.email).then((value) {
+      _email = value;
+    });
   }
 
-  void saveLoginInfo(String username, String password) {
+  void saveLoginInfo(String username, String password, String email) {
     _username = username;
     _password = password;
+    _password = email;
     SpManager.setString(SpConstant.username, username);
     SpManager.setString(SpConstant.password, password);
+    SpManager.setString(SpConstant.email, email);
   }
 
   /// 是否已登录
@@ -46,7 +53,9 @@ class UserManager {
   void clearLoginInfo() {
     _username = null;
     _password = null;
+    _email = null;
     SpManager.remove(SpConstant.username);
     SpManager.remove(SpConstant.password);
+    SpManager.remove(SpConstant.email);
   }
 }

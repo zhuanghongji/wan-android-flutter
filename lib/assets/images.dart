@@ -39,4 +39,6 @@ class ImageAsset {
   static const icEyeOpen = '$dir/ic_eye_open.png';
   static const icStartHollow = '$dir/ic_start_hollow.png';
   static const icStartSolid = '$dir/ic_start_solid.png';
+
+  static const bgWan = '$dir/bg_wan.jpg';
 }

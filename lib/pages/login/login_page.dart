@@ -4,6 +4,7 @@ import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/login_info.dart';
 import 'package:wan/assets/images.dart';
 import 'package:wan/base/base_page.dart';
+import 'package:wan/manager/user_manager.dart';
 import 'package:wan/router/w_router.dart';
 
 /// 登录页面
@@ -30,14 +31,16 @@ class _LoginPageState extends BasePageState<LoginPage> {
       return;
     }
     print('开始登录');
-    ApiService.login(_username, _password).then((LoginInfo loginInfo) {
+    ApiService.login(_username, _password).then((LoginInfo info) {
+      UserManager().saveLoginInfo(_username, _password, info.email);
       WRouter.gotoMainPage(context);
     });
   }
 
   void _onVisitorLogin() {
     String waf = 'wan-android-flutter';
-    ApiService.login(waf, waf).then((LoginInfo loginInfo) {
+    ApiService.login(waf, waf).then((LoginInfo info) {
+      UserManager().saveLoginInfo(waf, waf, info.email);
       WRouter.gotoMainPage(context);
     });
   }

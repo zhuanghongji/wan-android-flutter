@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:event_bus/event_bus.dart';
-import 'package:wan/pages/login/login_page.dart';
+import 'package:wan/pages/welcome/welcome_page.dart';
 import 'common/app.dart';
 import 'common/user.dart';
 import 'constant/sp_constant.dart';
@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Wan',
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: WelcomePage(),
       theme: _themeData,
     );
   }
