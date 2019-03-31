@@ -86,6 +86,11 @@ class WRouter {
     return await pushReplacement(context, MainPage());
   }
 
+  /// 跳转到：主页面
+  static Future<MaterialPageRoute> pushAndRemoveUntilMainPage(BuildContext context) async {
+    return await pushAndRemoveUntil(context, MainPage(), (router) => router == null);
+  }
+
   /// 跳转到：关于页面
   static Future<MaterialPageRoute> pushAboutPage(BuildContext context) async {
     return await push(context, AboutPage());

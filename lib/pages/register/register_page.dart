@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:wan/api/api_service.dart';
 import 'package:wan/api/datas/login_info.dart';
 import 'package:wan/base/base_page.dart';
+import 'package:wan/manager/user_manager.dart';
+import 'package:wan/router/w_router.dart';
 
 /// 模板页面
 class RegisterPage extends BasePage {
@@ -28,9 +30,10 @@ class _RegisterPageState extends BasePageState<RegisterPage> {
        print('请输入确认密码');
        return;
      }
-    ApiService.register(_username, _password, _repassword).then((LoginInfo loginInfo) {
+    ApiService.register(_username, _password, _repassword).then((LoginInfo info) {
       // 注意，可能该账号已被注册，或账号密码长度为大于或等于6位
-      print(loginInfo);
+      UserManager().saveLoginInfo(_username, _password, info.email);
+      WRouter.pushAndRemoveUntilMainPage(context);
     });
   }
 

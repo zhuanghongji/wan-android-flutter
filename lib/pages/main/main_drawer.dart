@@ -42,10 +42,15 @@ class _MainDrawerState extends State<MainDrawer> {
 
   Widget _buildDrawerAccountEmail() {
     var email = UserManager().getEmail();
+    // email = 'zhuanghongji.com@gmail.com';
     if (email == null || email.isEmpty) {
       return null;
     }
-    return Text(email);
+    return Text(email, 
+      style: TextStyle(
+        color: Colors.white,
+      )
+    );
   }
 
   Widget _buildDrawerHeader() {

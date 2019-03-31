@@ -68,5 +68,7 @@ class UserManager {
     SpManager.remove(SpConstant.username);
     SpManager.remove(SpConstant.password);
     SpManager.remove(SpConstant.email);
+
+    SpManager.remove(SpConstant.avatarUrl);
   }
 }
