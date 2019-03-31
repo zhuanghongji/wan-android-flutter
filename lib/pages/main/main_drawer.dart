@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wan/assets/images.dart';
+import 'package:wan/manager/user_manager.dart';
 import 'package:wan/router/w_router.dart';
 
 
@@ -10,19 +11,32 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
+  Widget _buildDrawerAccountName() {
+    var isLogin = UserManager().isLogin();
+    return InkWell(
+      child: Text(
+        isLogin ? UserManager().getUsername() : '点击登录',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      onTap: isLogin ? (){ WRouter.gotoLoginPage(context); } : null,
+    );
+  }
+
+  Widget _buildDrawerAccountEmail() {
+    var email = UserManager().getEmail();
+    if (email == null || email.isEmpty) {
+      return null;
+    }
+    return Text(email);
+  }
+
   Widget _buildDrawerHeader() {
     return UserAccountsDrawerHeader(
-      accountName: InkWell(
-        child: Text(
-          '点击登录',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        onTap: (){ WRouter.gotoLoginPage(context); },
-      ),
-      accountEmail: null,
+      accountName: _buildDrawerAccountName(),
+      accountEmail: _buildDrawerAccountEmail(),
       currentAccountPicture: CircleAvatar(
         backgroundImage: AssetImage(ImageAsset.icAvatar),
         backgroundColor: Colors.transparent,

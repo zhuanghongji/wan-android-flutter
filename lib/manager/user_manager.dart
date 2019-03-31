@@ -31,6 +31,17 @@ class UserManager {
     });
   }
 
+  String getUsername() {
+    return _username;
+  }
+
+  String getEmail() {
+    if (_email == null) {
+      return "";
+    }
+    return _email;
+  }
+
   void saveLoginInfo(String username, String password, String email) {
     _username = username;
     _password = password;

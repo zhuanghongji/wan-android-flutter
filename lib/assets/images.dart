@@ -41,4 +41,6 @@ class ImageAsset {
   static const icStartSolid = '$dir/ic_start_solid.png';
 
   static const bgWan = '$dir/bg_wan.jpg';
+
+  static const icArrowRight = '$dir/ic_arrow_right.png';
 }

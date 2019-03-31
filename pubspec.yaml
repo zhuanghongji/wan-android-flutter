@@ -84,6 +84,7 @@ flutter:
    - lib/assets/images/ic_start_hollow.png
    - lib/assets/images/ic_start_solid.png
    - lib/assets/images/bg_wan.jpg
+   - lib/assets/images/ic_arrow_right.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

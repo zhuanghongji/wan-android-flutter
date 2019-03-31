@@ -22,6 +22,9 @@ class ApiService {
   /// 在 HttpManager 上封装的 GET 请求，返回结果的 data 节点为 object
   static Future<T> get<T>(String path, Function buildFun, [Map<String, dynamic> params]) async {
     Map<String, dynamic> jsonRes = await HttpManager().get(path, params);
+    if (buildFun == null) {
+      return null;
+    }
     BaseResp<T> resp = BaseResp.fromJson(jsonRes, buildFun);
     return resp.data;
   }
@@ -29,6 +32,9 @@ class ApiService {
   /// 在 HttpManager 上封装的 GET 请求，返回结果的 data 节点为 List<object>
   static Future<List<T>> getList<T>(String path, Function buildFun, [Map<String, dynamic> params]) async {
     Map<String, dynamic> jsonRes = await HttpManager().get(path, params);
+    if (buildFun == null) {
+      return null;
+    }
     BaseRespList<T> respList = BaseRespList.fromJson(jsonRes, buildFun);
     return respList.data;
   }
@@ -146,7 +152,7 @@ class ApiService {
   /// 访问了 logout 后，服务端会让客户端清除 Cookie（即cookie max-Age=0）
   /// 如果客户端 Cookie 实现合理，可以实现自动清理，如果本地做了用户账号密码和保存，及时清理。
   static Future<dynamic> logout() async {
-    return get('/user/logout/json', () => {});
+    return get('/user/logout/json', null);
   }
 
   /// 收藏文章列表
