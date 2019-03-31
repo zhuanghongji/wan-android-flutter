@@ -21,6 +21,10 @@ WAN ANDROID 站点汇总了 Android 相关的项目、知识体系、公众号�
 
 ## 截图
 
+| 菜单 | 首页 | 待办 | 体系
+| - | - | - | -
+| ![](./screenshots/res/001.png) | ![](./screenshots/res/002.png) | ![](./screenshots/res/003.png) | ![](./screenshots/res/005.png) |
+
 [点击查看更多](./screenshots/)
 
 
