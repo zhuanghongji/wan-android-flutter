@@ -25,7 +25,7 @@ WAN ANDROID 站点汇总了 Android 相关的项目、知识体系、公众号�
 | - | - | - | -
 | ![](./screenshots/res/001.png) | ![](./screenshots/res/002.png) | ![](./screenshots/res/003.png) | ![](./screenshots/res/005.png) |
 
-[点击查看更多](./screenshots/)
+[点击查看更多截图](./screenshots/)
 
 
 ## 代码结构
@@ -85,6 +85,13 @@ WAN ANDROID 站点汇总了 Android 相关的项目、知识体系、公众号�
 ```
 
 
+## 路由示意图
+
+<img src="./router_diagram.jpg" width="800"/>
+
+> `WelomePage` - 启动页面，是应用入口。
+
+
 ## 第三方依赖
 
 * [dio](https://pub.dartlang.org/packages/dio)
@@ -97,10 +104,13 @@ WAN ANDROID 站点汇总了 Android 相关的项目、知识体系、公众号�
 
 
 
-## 待完成
+## 待完善
 
 * [ ] 支持主题切换
 * [ ] 支持多用户使用（切换账号）
+* [ ] 支持新增和修改待办事项
+* [ ] 发布 V1.0.0 版本
+* [ ] 封装 DialogManager 并优化一些交互上的逻辑
 * [ ] ...
 
 
